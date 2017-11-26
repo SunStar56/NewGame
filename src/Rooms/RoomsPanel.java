@@ -10,7 +10,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -27,8 +26,6 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	final int RBOUNDSX = 1820;
 	final int RBOUNDSY = 500;
 	Font titleFontLarge;
-	JLabel LArrow;
-	JLabel RArrow;
 
 	public void paintComponent(Graphics g) {
 		if (state == TITLE_STATE) {
@@ -48,10 +45,6 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	public RoomsPanel() {
 		timer = new Timer(1000 / 60, this);
 		titleFontLarge = new Font("Arial", Font.PLAIN, 48);
-		LArrow = new JLabel("Left(Insert Icon)");
-		RArrow = new JLabel("Right(Insert Icon)");
-		LArrow.addMouseListener(this);
-		RArrow.addMouseListener(this);
 	}
 
 	void startGame() {
@@ -83,8 +76,6 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		System.out.println(Rooms.FRAME_HEIGHT);
 		System.out.println(Rooms.FRAME_WIDTH);
 		g.setColor(Color.GRAY);
-		LArrow.setVisible(true);
-		RArrow.setVisible(false);
 	}
 
 	void drawRoomOne(Graphics g) {
@@ -157,27 +148,27 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	}
 
 	@Override
+
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if (mouse) != null) {
-			System.out.println("Beep");
-			state += 1;
-		}
 	}
 
 	@Override
+
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
+
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
+
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 
