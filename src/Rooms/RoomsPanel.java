@@ -26,6 +26,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	final int RBOUNDSX = 1820;
 	final int RBOUNDSY = 500;
 	Font titleFontLarge;
+	Font titleFontSmall;
 
 	public void paintComponent(Graphics g) {
 		if (state == TITLE_STATE) {
@@ -45,6 +46,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	public RoomsPanel() {
 		timer = new Timer(1000 / 60, this);
 		titleFontLarge = new Font("Arial", Font.PLAIN, 48);
+		titleFontSmall = new Font("Arial", Font.ITALIC, 36);
 	}
 
 	void startGame() {
@@ -73,6 +75,8 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		g.setFont(titleFontLarge);
 		g.setColor(Color.WHITE);
 		g.drawString("ROOMS", 900, 540);
+		g.setFont(titleFontSmall);
+		g.drawString("Arrow Keys to switch between rooms, click on things to interact with them.", 400, 800);
 		System.out.println(Rooms.FRAME_HEIGHT);
 		System.out.println(Rooms.FRAME_WIDTH);
 		g.setColor(Color.GRAY);
@@ -84,17 +88,20 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	}
 
 	void drawRoomTwo(Graphics g) {
-		// TODO Auto-generated method stub
+		g.setColor(Color.BLUE);
+		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
 
 	}
 
 	void drawRoomThree(Graphics g) {
-		// TODO Auto-generated method stub
+		g.setColor(Color.GREEN);
+		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
 
 	}
 
 	void drawEndState(Graphics g) {
-		// TODO Auto-generated method stub
+		g.setColor(Color.ORANGE);
+		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
 
 	}
 
