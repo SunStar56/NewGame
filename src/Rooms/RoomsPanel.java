@@ -3,13 +3,18 @@ package Rooms;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -27,6 +32,9 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	final int RBOUNDSY = 500;
 	Font titleFontLarge;
 	Font titleFontSmall;
+	public static BufferedImage RoomOneImg;
+	public static BufferedImage RoomTwoImg;
+	public static BufferedImage RoomThreeImg;
 
 	public void paintComponent(Graphics g) {
 		if (state == TITLE_STATE) {
@@ -47,6 +55,13 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		timer = new Timer(1000 / 60, this);
 		titleFontLarge = new Font("Arial", Font.PLAIN, 48);
 		titleFontSmall = new Font("Arial", Font.ITALIC, 36);
+		try {
+			RoomOneImg = ImageIO.read(this.getClass().getResourceAsStream("Room_One.png"));
+			RoomTwoImg = ImageIO.read(this.getClass().getResourceAsStream("Room_Two.png"));
+			RoomThreeImg = ImageIO.read(this.getClass().getResourceAsStream("Room_Three.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	void startGame() {
@@ -77,26 +92,29 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		g.drawString("ROOMS", 900, 540);
 		g.setFont(titleFontSmall);
 		g.drawString("Arrow Keys to switch between rooms, click on things to interact with them.", 400, 800);
-		System.out.println(Rooms.FRAME_HEIGHT);
-		System.out.println(Rooms.FRAME_WIDTH);
 		g.setColor(Color.GRAY);
+
 	}
 
 	void drawRoomOne(Graphics g) {
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
+		g.drawImage(RoomOneImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
+		if (IsTouching(132, 205, 121, 287) == true) {
+			JOptionPane.showMessageDialog(null, "meep moop");
+		}
 	}
 
 	void drawRoomTwo(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
-
+		g.drawImage(RoomTwoImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
 	}
 
 	void drawRoomThree(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
-
+		g.drawImage(RoomThreeImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
 	}
 
 	void drawEndState(Graphics g) {
@@ -157,14 +175,13 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	@Override
 
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 	}
 
 	@Override
 
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-
+		IsTouching(0, 500, 0, 500);
 	}
 
 	@Override
@@ -184,6 +201,16 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
+
+	}
+
+	public boolean IsTouching(int xcoord, int xcoord2, int ycoord, int ycoord2) {
+		Point m = getMousePosition();
+		if (m.x >= xcoord && m.y >= ycoord && m.x <= xcoord2 && m.y <= ycoord2) {
+			return true;
+		} else {
+			return false;
+		}
 
 	}
 }

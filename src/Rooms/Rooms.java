@@ -25,5 +25,6 @@ public class Rooms {
 		panel.startGame();
 		frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		frame.addKeyListener(panel);
+		frame.addMouseListener(panel);
 	}
 }
