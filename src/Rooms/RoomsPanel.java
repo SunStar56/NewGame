@@ -3,7 +3,6 @@ package Rooms;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,7 +13,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -32,6 +30,8 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	final int RBOUNDSY = 500;
 	Font titleFontLarge;
 	Font titleFontSmall;
+	ObjectManager obj = new ObjectManager();
+
 	public static BufferedImage RoomOneImg;
 	public static BufferedImage RoomTwoImg;
 	public static BufferedImage RoomThreeImg;
@@ -100,10 +100,11 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
 		g.drawImage(RoomOneImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
-		if (IsTouching(132, 205, 121, 287) == true) {
-			JOptionPane.showMessageDialog(null, "meep moop");
-		}
+		// if (IsTouching(132, 205, 121, 287) == true) {
+		// JOptionPane.showMessageDialog(null, "meep moop");
 	}
+
+	// }
 
 	void drawRoomTwo(Graphics g) {
 		g.setColor(Color.BLUE);
@@ -120,7 +121,9 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	void drawEndState(Graphics g) {
 		g.setColor(Color.ORANGE);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
-
+		g.setFont(titleFontLarge);
+		g.setColor(Color.BLACK);
+		g.drawString("You Win!", 900, 540);
 	}
 
 	void updateTitleState() {
@@ -128,7 +131,6 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	}
 
 	void updateRoomOne() {
-
 	}
 
 	void updateRoomTwo() {
@@ -181,7 +183,6 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		IsTouching(0, 500, 0, 500);
 	}
 
 	@Override
@@ -204,13 +205,12 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 
 	}
 
-	public boolean IsTouching(int xcoord, int xcoord2, int ycoord, int ycoord2) {
-		Point m = getMousePosition();
-		if (m.x >= xcoord && m.y >= ycoord && m.x <= xcoord2 && m.y <= ycoord2) {
-			return true;
-		} else {
-			return false;
-		}
+	// public boolean IsTouching(int xcoord, int xcoord2, int ycoord, int ycoord2) {
+	// Point m = getMousePosition();
+	// if (m.x >= xcoord && m.y >= ycoord && m.x <= xcoord2 && m.y <= ycoord2) {
+	// return true;
+	// } else {
+	// return false;
+	// }
 
-	}
 }
