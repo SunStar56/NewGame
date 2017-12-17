@@ -3,6 +3,7 @@ package Rooms;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -28,6 +30,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	final int LBOUNDSY = 500;
 	final int RBOUNDSX = 1820;
 	final int RBOUNDSY = 500;
+	boolean hasKey1;
 	Font titleFontLarge;
 	Font titleFontSmall;
 	ObjectManager obj = new ObjectManager();
@@ -55,6 +58,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		timer = new Timer(1000 / 60, this);
 		titleFontLarge = new Font("Arial", Font.PLAIN, 48);
 		titleFontSmall = new Font("Arial", Font.ITALIC, 36);
+
 		try {
 			RoomOneImg = ImageIO.read(this.getClass().getResourceAsStream("Room_One.png"));
 			RoomTwoImg = ImageIO.read(this.getClass().getResourceAsStream("Room_Two.png"));
@@ -80,6 +84,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 			updateRoomThree();
 		} else if (state == END_STATE) {
 			updateEndState();
+
 		}
 	}
 
@@ -100,8 +105,6 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
 		g.drawImage(RoomOneImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
-		// if (IsTouching(132, 205, 121, 287) == true) {
-		// JOptionPane.showMessageDialog(null, "meep moop");
 	}
 
 	// }
@@ -110,6 +113,8 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
 		g.drawImage(RoomTwoImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
+		g.setColor(Color.black);
+		g.fillRect(50, 50, 100, 100);
 	}
 
 	void drawRoomThree(Graphics g) {
@@ -155,15 +160,18 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-			state -= 1;
-			if (state < 0) {
-				state = 4;
+			if (hasKey1 == true) {
+				state -= 1;
+				if (state < 0) {
+					state = 0;
+				}
 			}
 			System.out.println(state);
 		} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			state += 1;
-			if (state > 4) {
-				state = 0;
+			if (state == 0) {
+				state += 1;
+			} else if (hasKey1 && state == 1) {
+				state += 1;
 			}
 		}
 	}
@@ -177,13 +185,31 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	@Override
 
 	public void mouseClicked(MouseEvent e) {
+		Point m = getMousePosition();
+		System.out.println("here at " + m.x + ", " + m.y + "");
 	}
 
 	@Override
 
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+		// if (IsTouching(50, 50, 100, 100)) {
+		// System.out.println("Touching");
+		// } else {
+		// System.out.println("Not touching");
+		// }
+		// Book Touching
+		if (IsTouching(501, 844, 700, 897)) {
+			JOptionPane.showMessageDialog(null,
+					"You turn the page to the bookmark and see that there is a key taped to it.  You pick it up.");
+			hasKey1 = true;
+			if (IsTouching(747, 713, 718, 690)) {
+				JOptionPane.showMessageDialog(null, ("The label reads ''3377123''."));
+
+			}
+		}
 	}
+
+	// }
 
 	@Override
 
@@ -200,17 +226,20 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	}
 
 	@Override
+
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
-	// public boolean IsTouching(int xcoord, int xcoord2, int ycoord, int ycoord2) {
-	// Point m = getMousePosition();
-	// if (m.x >= xcoord && m.y >= ycoord && m.x <= xcoord2 && m.y <= ycoord2) {
-	// return true;
-	// } else {
-	// return false;
-	// }
+	public boolean IsTouching(int xcoord, int ycoord, int xcoord2, int ycoord2) {
+		Point m = getMousePosition();
+		System.out.println(xcoord + " " + ycoord + " " + xcoord2 + " " + ycoord2);
+		if (m.x >= xcoord && m.y >= ycoord && m.x <= xcoord2 && m.y <= ycoord2) {
+			return true;
+		} else {
+			return false;
+		}
 
+	}
 }

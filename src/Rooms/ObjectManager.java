@@ -18,7 +18,7 @@ public class ObjectManager {
 	}
 
 	public void setup() {
-		objects.add(new RoomsObject(50, 50, 50, 50));
+		// Object book = objects.add(new RoomsObject(50, 50, 50, 50));
 	}
 
 	public void update() {

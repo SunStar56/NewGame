@@ -16,7 +16,6 @@ public class Rooms {
 
 	public static void main(String[] args) {
 		Rooms r = new Rooms();
-		ObjectManager om = new ObjectManager();
 	}
 
 	void setup() {
