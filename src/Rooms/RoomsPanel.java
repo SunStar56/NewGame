@@ -3,6 +3,7 @@ package Rooms;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,13 +32,17 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	final int RBOUNDSX = 1820;
 	final int RBOUNDSY = 500;
 	boolean hasKey1;
+	boolean hasSKey2;
+	boolean hasKey2;
+	boolean hasKey3;
+	String input;
 	Font titleFontLarge;
 	Font titleFontSmall;
-	ObjectManager obj = new ObjectManager();
 
 	public static BufferedImage RoomOneImg;
 	public static BufferedImage RoomTwoImg;
 	public static BufferedImage RoomThreeImg;
+	public static BufferedImage RoomsEndImg;
 
 	public void paintComponent(Graphics g) {
 		if (state == TITLE_STATE) {
@@ -63,6 +68,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 			RoomOneImg = ImageIO.read(this.getClass().getResourceAsStream("Room_One.png"));
 			RoomTwoImg = ImageIO.read(this.getClass().getResourceAsStream("Room_Two.png"));
 			RoomThreeImg = ImageIO.read(this.getClass().getResourceAsStream("Room_Three.png"));
+			RoomsEndImg = ImageIO.read(this.getClass().getResourceAsStream("Room_End.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -107,14 +113,10 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		g.drawImage(RoomOneImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
 	}
 
-	// }
-
 	void drawRoomTwo(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
 		g.drawImage(RoomTwoImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
-		g.setColor(Color.black);
-		g.fillRect(50, 50, 100, 100);
 	}
 
 	void drawRoomThree(Graphics g) {
@@ -124,11 +126,12 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	}
 
 	void drawEndState(Graphics g) {
-		g.setColor(Color.ORANGE);
-		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
+		g.drawImage(RoomsEndImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
 		g.setFont(titleFontLarge);
 		g.setColor(Color.BLACK);
 		g.drawString("You Win!", 900, 540);
+		g.setFont(titleFontSmall);
+		g.drawString("Thanks for playing.", 850, 600);
 	}
 
 	void updateTitleState() {
@@ -172,7 +175,12 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 				state += 1;
 			} else if (hasKey1 && state == 1) {
 				state += 1;
+			} else if (hasKey2 && state == 2) {
+				state += 1;
+			} else if (hasKey3 && state == 3) {
+				state += 1;
 			}
+
 		}
 	}
 
@@ -185,31 +193,53 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	@Override
 
 	public void mouseClicked(MouseEvent e) {
-		Point m = getMousePosition();
-		System.out.println("here at " + m.x + ", " + m.y + "");
+
 	}
 
 	@Override
 
 	public void mousePressed(MouseEvent e) {
-		// if (IsTouching(50, 50, 100, 100)) {
-		// System.out.println("Touching");
-		// } else {
-		// System.out.println("Not touching");
-		// }
-		// Book Touching
-		if (IsTouching(501, 844, 700, 897)) {
-			JOptionPane.showMessageDialog(null,
-					"You turn the page to the bookmark and see that there is a key taped to it.  You pick it up.");
-			hasKey1 = true;
-			if (IsTouching(747, 713, 718, 690)) {
+		if (state == ROOM_ONE) {
+			if (IsTouching(492, 840, 707, 947)) {
+				JOptionPane.showMessageDialog(null,
+						"You turn the page to the bookmark and see that there is a key taped to it.  You pick it up.");
+				hasKey1 = true;
+			}
+			if (IsTouching(719, 731, 754, 761)) {
 				JOptionPane.showMessageDialog(null, ("The label reads ''3377123''."));
-
 			}
 		}
-	}
+		if (state == ROOM_TWO) {
+			if (IsTouching(1524, 813, 1843, 921)) {
+				if (hasSKey2 == false) {
+					JOptionPane.showMessageDialog(null,
+							"You open the drawer to find a metal box with a small keyhole.");
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"You use the key to open the box.  Inside you find a larger door key.");
+					hasKey2 = true;
+				}
 
-	// }
+			}
+			if (IsTouching(1544, 652, 1656, 790)) {
+				JOptionPane.showMessageDialog(null, "Under the drink you find a small key.");
+				hasSKey2 = true;
+			}
+		}
+		if (state == ROOM_THREE) {
+			if (IsTouching(1161, 198, 1838, 709)) {
+				input = JOptionPane.showInputDialog("You find a padlock on the window with a 7 digit code.");
+
+			}
+			if (input.equals("3377123")) {
+				JOptionPane.showMessageDialog(null, "The padlock clicks and you open the window.");
+				hasKey3 = true;
+			} else {
+				JOptionPane.showMessageDialog(null, "You try to open the lock, but it remains closed.");
+			}
+		}
+
+	}
 
 	@Override
 
@@ -233,8 +263,10 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	}
 
 	public boolean IsTouching(int xcoord, int ycoord, int xcoord2, int ycoord2) {
-		Point m = getMousePosition();
-		System.out.println(xcoord + " " + ycoord + " " + xcoord2 + " " + ycoord2);
+		Point m = MouseInfo.getPointerInfo().getLocation();
+		System.out.println(m.x);
+		System.out.println(m.y);
+
 		if (m.x >= xcoord && m.y >= ycoord && m.x <= xcoord2 && m.y <= ycoord2) {
 			return true;
 		} else {
