@@ -14,6 +14,10 @@ public class Rooms {
 		setup();
 	}
 
+	public static void main(String[] args) {
+		Rooms r = new Rooms();
+	}
+
 	void setup() {
 		frame.add(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

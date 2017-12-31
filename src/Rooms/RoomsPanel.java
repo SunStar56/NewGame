@@ -43,6 +43,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	public static BufferedImage RoomTwoImg;
 	public static BufferedImage RoomThreeImg;
 	public static BufferedImage RoomsEndImg;
+	public static BufferedImage RoomThreeLockImg;
 
 	public void paintComponent(Graphics g) {
 		if (state == TITLE_STATE) {
@@ -69,6 +70,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 			RoomTwoImg = ImageIO.read(this.getClass().getResourceAsStream("Room_Two.png"));
 			RoomThreeImg = ImageIO.read(this.getClass().getResourceAsStream("Room_Three.png"));
 			RoomsEndImg = ImageIO.read(this.getClass().getResourceAsStream("Room_End.png"));
+			RoomThreeLockImg = ImageIO.read(this.getClass().getResourceAsStream("lockPic.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
