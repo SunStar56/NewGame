@@ -35,7 +35,10 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	boolean hasSKey2;
 	boolean hasKey2;
 	boolean hasKey3;
-	String input;
+	boolean doneLock;
+	boolean lockShow;
+	JPanel lpanel;
+	String input = "1";
 	Font titleFontLarge;
 	Font titleFontSmall;
 
@@ -62,6 +65,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 
 	public RoomsPanel() {
 		timer = new Timer(1000 / 60, this);
+		lpanel = new JPanel();
 		titleFontLarge = new Font("Arial", Font.PLAIN, 48);
 		titleFontSmall = new Font("Arial", Font.ITALIC, 36);
 
@@ -69,7 +73,6 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 			RoomOneImg = ImageIO.read(this.getClass().getResourceAsStream("Room_One.png"));
 			RoomTwoImg = ImageIO.read(this.getClass().getResourceAsStream("Room_Two.png"));
 			RoomThreeImg = ImageIO.read(this.getClass().getResourceAsStream("Room_Three.png"));
-			RoomsEndImg = ImageIO.read(this.getClass().getResourceAsStream("Room_End.png"));
 			RoomThreeLockImg = ImageIO.read(this.getClass().getResourceAsStream("lockPic.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -91,7 +94,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		} else if (state == ROOM_THREE) {
 			updateRoomThree();
 		} else if (state == END_STATE) {
-			updateEndState();
+			//updateEndState(g);
 
 		}
 	}
@@ -124,11 +127,17 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	void drawRoomThree(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
-		g.drawImage(RoomThreeImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
+		if (lockShow == true) {
+			g.drawImage(RoomThreeImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
+			g.drawImage(RoomThreeLockImg, 0, 0, Rooms.FRAME_WIDTH/2, Rooms.FRAME_HEIGHT/2, null);
+		}
+		if (lockShow == false) {
+			g.drawImage(RoomThreeImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
+		}
+		//g.drawImage(RoomThreeImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
 	}
 
 	void drawEndState(Graphics g) {
-		g.drawImage(RoomsEndImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
 		g.setFont(titleFontLarge);
 		g.setColor(Color.BLACK);
 		g.drawString("You Win!", 900, 540);
@@ -151,8 +160,13 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 
 	}
 
-	void updateEndState() {
-
+	void updateEndState(Graphics g) {
+		if (lockShow == true) {
+		g.drawImage(RoomThreeLockImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
+	}
+	if (lockShow == false) {
+		g.drawImage(RoomThreeImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
+	}
 	}
 
 	@Override
@@ -230,18 +244,48 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		}
 		if (state == ROOM_THREE) {
 			if (IsTouching(1161, 198, 1838, 709)) {
-				input = JOptionPane.showInputDialog("You find a padlock on the window with a 7 digit code.");
-
+				if (hasKey3 == false) {
+					lockShow = true;
+				}
 			}
-			if (input.equals("3377123")) {
+			else if (IsTouching(596,	352, 791, 462)) {
+				input = input+ "3";
+				System.out.println(input);
+			}
+			else if (IsTouching(170, 110, 386, 237)) {
+				input = input + "7";
+				System.out.println(input);
+			}
+			else if (IsTouching(169,	345,	 388	, 469)) {
+				input = input + "1";
+				System.out.println(input);
+			}
+			else if (IsTouching(385, 347, 589, 469)) {
+				input = input + "2";
+				System.out.println(input);
+			}
+			else if (IsTouching(584, 353, 591, 235)) {
+				input = input + "5";
+				System.out.println(input);
+			}
+			
+			if (input.equals("13377123")) {
 				JOptionPane.showMessageDialog(null, "The padlock clicks and you open the window.");
 				hasKey3 = true;
-			} else {
-				JOptionPane.showMessageDialog(null, "You try to open the lock, but it remains closed.");
+				lockShow = false;
+				doneLock = true;
+			}
+			if (input.length() > 7  ) {
+				if (doneLock == false) {
+					JOptionPane.showMessageDialog(null, "You try to open the lock, but it remains closed.");
+					input="1";
+				}
+				lockShow = false;
 			}
 		}
-
 	}
+
+	//}
 
 	@Override
 
@@ -266,8 +310,8 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 
 	public boolean IsTouching(int xcoord, int ycoord, int xcoord2, int ycoord2) {
 		Point m = MouseInfo.getPointerInfo().getLocation();
-		System.out.println(m.x);
-		System.out.println(m.y);
+		System.out.println("x" + m.x);
+		System.out.println("y" + m.y);
 
 		if (m.x >= xcoord && m.y >= ycoord && m.x <= xcoord2 && m.y <= ycoord2) {
 			return true;
