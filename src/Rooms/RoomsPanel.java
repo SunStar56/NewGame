@@ -37,6 +37,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	boolean hasKey3;
 	boolean doneLock;
 	boolean lockShow;
+	boolean devMode;
 	JPanel lpanel;
 	String input = "a";
 	Font titleFontLarge;
@@ -66,6 +67,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 
 	public RoomsPanel() {
 		timer = new Timer(1000 / 60, this);
+		devMode = false;
 		if (!hasKey1) {
 			keyText = "False";
 		}
@@ -241,7 +243,8 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 			}
 
 		}
-	}
+			
+		}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
