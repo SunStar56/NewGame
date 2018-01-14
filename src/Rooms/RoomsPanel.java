@@ -38,9 +38,10 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	boolean doneLock;
 	boolean lockShow;
 	JPanel lpanel;
-	String input = "1";
+	String input = "a";
 	Font titleFontLarge;
 	Font titleFontSmall;
+	String keyText;
 
 	public static BufferedImage RoomOneImg;
 	public static BufferedImage RoomTwoImg;
@@ -65,6 +66,21 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 
 	public RoomsPanel() {
 		timer = new Timer(1000 / 60, this);
+		if (!hasKey1) {
+			keyText = "False";
+		}
+		else if (hasKey1 && !hasKey2 && state == 1) {
+			keyText = "True";
+		}
+		else if (hasKey2 && !hasKey3 && state == 2) {
+			keyText = "True";
+		}
+		else if (hasKey3) {
+			keyText = "True";
+		}
+		else {
+			keyText = "False";
+		}
 		lpanel = new JPanel();
 		titleFontLarge = new Font("Arial", Font.PLAIN, 48);
 		titleFontSmall = new Font("Arial", Font.ITALIC, 36);
@@ -97,6 +113,21 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 			//updateEndState(g);
 
 		}
+		if (!hasKey1) {
+			keyText = "False";
+		}
+		else if (hasKey1 && state == 1) {
+			keyText = "True";
+		}
+		else if (hasKey2 && !hasKey3 && state == 2) {
+			keyText = "True";
+		}
+		else if (hasKey3) {
+			keyText = "True";
+		}
+		else {
+			keyText = "False";
+		}
 	}
 
 	void drawTitleState(Graphics g) {
@@ -116,25 +147,37 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
 		g.drawImage(RoomOneImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
+		g.setColor(Color.BLACK);
+		g.setFont(titleFontSmall);
+		g.drawString("Key: " + keyText, 1725, 50);
 	}
 
 	void drawRoomTwo(Graphics g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
 		g.drawImage(RoomTwoImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
+		g.setColor(Color.BLACK);
+		g.setFont(titleFontSmall);
+		g.drawString("Key: " + keyText, 1725, 50);
 	}
 
 	void drawRoomThree(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT);
+		
 		if (lockShow == true) {
 			g.drawImage(RoomThreeImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
 			g.drawImage(RoomThreeLockImg, 0, 0, Rooms.FRAME_WIDTH/2, Rooms.FRAME_HEIGHT/2, null);
+			g.setColor(Color.BLACK);
+			g.setFont(titleFontSmall);
+			g.drawString("Key: " + keyText, 1725, 50);
 		}
 		if (lockShow == false) {
 			g.drawImage(RoomThreeImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
+			g.setColor(Color.BLACK);
+			g.setFont(titleFontSmall);
+			g.drawString("Key: " + keyText, 1725, 50);
 		}
-		//g.drawImage(RoomThreeImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
 	}
 
 	void drawEndState(Graphics g) {
@@ -146,7 +189,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	}
 
 	void updateTitleState() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	void updateRoomOne() {
@@ -222,7 +265,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 				hasKey1 = true;
 			}
 			if (IsTouching(719, 731, 754, 761)) {
-				JOptionPane.showMessageDialog(null, ("The label reads ''3377123''."));
+				JOptionPane.showMessageDialog(null, ("The label reads 'The world's best teabag!  Use by: ''3377123'''."));
 			}
 		}
 		if (state == ROOM_TWO) {
@@ -248,14 +291,6 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 					lockShow = true;
 				}
 			}
-			else if (IsTouching(596,	352, 791, 462)) {
-				input = input+ "3";
-				System.out.println(input);
-			}
-			else if (IsTouching(170, 110, 386, 237)) {
-				input = input + "7";
-				System.out.println(input);
-			}
 			else if (IsTouching(169,	345,	 388	, 469)) {
 				input = input + "1";
 				System.out.println(input);
@@ -264,28 +299,50 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 				input = input + "2";
 				System.out.println(input);
 			}
-			else if (IsTouching(584, 353, 591, 235)) {
+			else if (IsTouching(596,	352, 791, 462)) {
+				input = input+ "3";
+				System.out.println(input);
+			}
+			else if (IsTouching(182, 234, 387, 355)) {
+				input = input + "4";
+				System.out.println(input);
+			}
+			else if (IsTouching(386, 234, 591, 347)) {
 				input = input + "5";
 				System.out.println(input);
 			}
-			
-			if (input.equals("13377123")) {
-				JOptionPane.showMessageDialog(null, "The padlock clicks and you open the window.");
+			else if (IsTouching(595, 238, 792, 351)) {
+				input = input + "6";
+				System.out.println(input);
+			}
+			else if (IsTouching(170, 110, 386, 237)) {
+				input = input + "7";
+				System.out.println(input);
+			}
+			else if (IsTouching(386, 114, 595, 235)) {
+				input = input + "8";
+				System.out.println(input);
+			}
+			else if (IsTouching(591, 116, 794, 232)) {
+				input = input + "9";
+				System.out.println(input);
+			}
+			input = input.replace("a", "");
+			if (input.equals("3377123")) {
+				JOptionPane.showMessageDialog(null, "You enter the code " + input + " and the lock opens.");
 				hasKey3 = true;
 				lockShow = false;
 				doneLock = true;
 			}
-			if (input.length() > 7  ) {
+			if (input.length() > 6  ) {
 				if (doneLock == false) {
-					JOptionPane.showMessageDialog(null, "You try to open the lock, but it remains closed.");
-					input="1";
+					JOptionPane.showMessageDialog(null, "You enter the code " + input + "... But the lock won't open.");
+					input="a";
 				}
 				lockShow = false;
 			}
 		}
 	}
-
-	//}
 
 	@Override
 
