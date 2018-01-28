@@ -16,6 +16,8 @@ public class Rooms {
 
 	public static void main(String[] args) {
 		Rooms r = new Rooms();
+		System.out.println(FRAME_WIDTH);
+		System.out.println(FRAME_HEIGHT);
 	}
 
 	void setup() {

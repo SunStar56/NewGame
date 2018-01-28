@@ -49,6 +49,8 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	public static BufferedImage RoomThreeImg;
 	public static BufferedImage RoomsEndImg;
 	public static BufferedImage RoomThreeLockImg;
+	public static BufferedImage TitleScreenImg;
+	public static BufferedImage EndScreenImg;
 
 	public void paintComponent(Graphics g) {
 		if (state == TITLE_STATE) {
@@ -92,6 +94,8 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 			RoomTwoImg = ImageIO.read(this.getClass().getResourceAsStream("Room_Two.png"));
 			RoomThreeImg = ImageIO.read(this.getClass().getResourceAsStream("Room_Three.png"));
 			RoomThreeLockImg = ImageIO.read(this.getClass().getResourceAsStream("lockPic.jpg"));
+			TitleScreenImg = ImageIO.read(this.getClass().getResourceAsStream("Title_Screen.png"));
+			EndScreenImg = ImageIO.read(this.getClass().getResourceAsStream("End_Screen.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -136,12 +140,10 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		// TODO Auto-generated method stub
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, Rooms.FRAME_WIDTH + 50, Rooms.FRAME_HEIGHT);
-		g.setFont(titleFontLarge);
+		g.drawImage(TitleScreenImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
 		g.setColor(Color.WHITE);
-		g.drawString("ROOMS", 900, 540);
-		g.setFont(titleFontSmall);
-		g.drawString("Arrow Keys to switch between rooms, click on things to interact with them.", 400, 800);
-		g.setColor(Color.GRAY);
+		g.setFont(titleFontLarge);
+		g.drawString("Press  the  right  arrow  to  begin.", 1200, 100);
 
 	}
 
@@ -183,11 +185,7 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 	}
 
 	void drawEndState(Graphics g) {
-		g.setFont(titleFontLarge);
-		g.setColor(Color.BLACK);
-		g.drawString("You Win!", 900, 540);
-		g.setFont(titleFontSmall);
-		g.drawString("Thanks for playing.", 850, 600);
+		g.drawImage(EndScreenImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
 	}
 
 	void updateTitleState() {
@@ -226,8 +224,8 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			if (hasKey1 == true) {
 				state -= 1;
-				if (state < 0) {
-					state = 0;
+				if (state < 1) {
+					state = 1;
 				}
 			}
 			System.out.println(state);
