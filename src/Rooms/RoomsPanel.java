@@ -186,6 +186,9 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 
 	void drawEndState(Graphics g) {
 		g.drawImage(EndScreenImg, 0, 0, Rooms.FRAME_WIDTH, Rooms.FRAME_HEIGHT, null);
+		g.setColor(Color.WHITE);
+		g.setFont(titleFontLarge);
+		g.drawString("Thanks for playing.", 1400, 100);
 	}
 
 	void updateTitleState() {
@@ -266,7 +269,11 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 				hasKey1 = true;
 			}
 			if (IsTouching(719, 731, 754, 761)) {
-				JOptionPane.showMessageDialog(null, ("The label reads 'The world's best teabag!  Use by: ''3377123'''."));
+				JOptionPane.showMessageDialog(null, ("The world's best teabag!  Use by: ''3141592''."));
+			}
+			if (IsTouching(1105, 147, 1380, 372)) {
+				JOptionPane.showMessageDialog(null, "Tick tock goes the clock.");
+				
 			}
 		}
 		if (state == ROOM_TWO) {
@@ -329,8 +336,8 @@ public class RoomsPanel extends JPanel implements ActionListener, KeyListener, M
 				System.out.println(input);
 			}
 			input = input.replace("a", "");
-			if (input.equals("3377123")) {
-				JOptionPane.showMessageDialog(null, "You enter the code " + input + " and the lock opens.");
+			if (input.equals("3141592")) {
+				JOptionPane.showMessageDialog(null, "You enter the code " + input + ", and the lock opens.");
 				hasKey3 = true;
 				lockShow = false;
 				doneLock = true;
