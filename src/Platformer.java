@@ -19,14 +19,15 @@
 		JFrame window;
 		Timer timer;
 		
-		Player p1 = new Player(50, 50, 100, 100);
+		Square s = new Square(50, 50, 100, 100);
 		
 		public static void main(String[] args) {
 			new Platformer().run();
+			new Platforms();
 		}
 		
 		public void run(){
-			window = new JFrame("JUMPER!!");
+			window = new JFrame("Platform Thing");
 			window.addKeyListener(this);
 			window.add(this);
 			window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -39,11 +40,15 @@
 		}
 		
 		public void paintComponent(Graphics g){
-			p1.draw(g);
+			s.draw(g);
+			
+			g.setColor(Color.GREEN);
+			g.fillRect(200, 500, 100, 25);
 		}
 		
 		public void actionPerformed(ActionEvent e){
-			p1.update();
+			s.update();
+			System.out.println("XlV:"+ s.xlVelocity + "XrV:"+ s.xrVelocity);
 			repaint();
 			
 		}
@@ -58,86 +63,45 @@
 		public void keyPressed(KeyEvent e) {
 			
 			if(e.getKeyCode() == KeyEvent.VK_LEFT){
-				p1.left = true;
+				s.left = true;
+				//s.xrVelocity -=1;
 			}
+			//if (s.xrVelocity > 10) {
+				//s.xrVelocity = 10;
+			//}
+			//if (s.xrVelocity < -10) {
+				//s.xrVelocity = -10;
+			//}
+			
 			if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-				p1.right = true;
+				s.right = true;
+				//s.xrVelocity += 1;
 			}
+				
+				
+			
+				
 			
 			if(e.getKeyCode() == KeyEvent.VK_SPACE){
-				p1.jump();
-			}
+				s.jump();
+			}}
 			
-		}
+		
 
 		@Override
 		public void keyReleased(KeyEvent e) {
 			// TODO Auto-generated method stub
 			if(e.getKeyCode() == KeyEvent.VK_LEFT){
-				p1.left = false;
+				s.left = false;
 			}
-			if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-				p1.right = false;
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				s.right = false;
+			}
+			
+			
 			}
 			
 		}
-	}
+	
 
-	class Player{
-		private int x;
-		private int y;
-		private int width;
-		private int height;
-		
-		public boolean left = false;
-		public boolean right = false;
-		
-		private int xVelocity = 5;
-		
-		int gravity = 1;
-		int yVelocty = 0;
-		int jumpPower = 20;
-		
-		int yLimit = 500;
-
-		boolean canJump = false;
-		
-		public Player(int x, int y, int w, int h){
-			this.x = x;
-			this.y = y;
-			this.width = w;
-			this.height = h;
-		}
-		
-		public void jump(){
-			if(canJump){
-				yVelocty -= jumpPower;
-				canJump = false;
-			}
-		}
-		
-		public void update(){
-			if(left){
-				x -= xVelocity;
-			}
-			if(right){
-				x += xVelocity;
-			}
-			
-			yVelocty += gravity;
-			y += yVelocty;
-			
-			if(y >= yLimit){
-				y = yLimit;
-				yVelocty = 0;
-				canJump = true;
-			}
-			
-		}
-		
-		public void draw(Graphics g){
-			g.setColor(Color.BLUE);
-			g.fillRect(x, y, width, height);
-		}
-	}
 
