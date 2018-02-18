@@ -15,6 +15,7 @@ public class Square {
 		int gravity = 1;
 		int yVelocty = 0;
 		int xVelocty = 0;
+		static int size = 50;
 		int jumpPower = 20;
 		
 		int yLimit = 500;
