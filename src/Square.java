@@ -6,7 +6,8 @@ public class Square {
 		private int y;
 		private int width;
 		private int height;
-		
+		boolean isAlive = true;
+		boolean goingUp = false;
 		public boolean left = false;
 		public boolean right = false;
 		
@@ -31,6 +32,7 @@ public class Square {
 		
 		public void jump(){
 			if(canJump){
+				goingUp = true;
 				yVelocty -= jumpPower;
 				canJump = false;
 			}
@@ -46,7 +48,9 @@ public class Square {
 			
 			yVelocty += gravity;
 			y += yVelocty;
-			
+			if (yVelocty == 0) {
+				goingUp = false;
+			}
 			if(y >= yLimit){
 				y = yLimit;
 				yVelocty = 0;

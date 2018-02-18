@@ -20,7 +20,7 @@
 			timer = new Timer(1000/60, this);
 		}
 		
-		Square s = new Square(50, 50, 100, 100);
+		Square s = new Square(50, 50, Square.size, Square.size);
 		
 		void startGame() {
 			timer.start();
@@ -32,9 +32,9 @@
 		
 		public void paintComponent(Graphics g){
 			s.draw(g);
-			
-			g.setColor(Color.GREEN);
-			g.fillRect(200, 500, 100, 25);
+			System.out.println(s.goingUp);
+			g.setColor(Color.RED);
+			g.fillRect(300, 450, 100, 25);
 		}
 		
 		public void actionPerformed(ActionEvent e){

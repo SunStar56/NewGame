@@ -3,10 +3,11 @@ import java.awt.Graphics;
 
 public class Steps {
 
-	Square d = new Square(0, 0, 0, 0);
- void drawPlat(Graphics g) {
+ Steps d = new Steps();
+
+public void drawPlat(Graphics g, int x, int y, int w, int h) {
 	 	g.setColor(Color.red);
-		g.drawRect(100, 100, 100, 25);
+		g.drawRect(x, y, w, h);
 
 	}
 }

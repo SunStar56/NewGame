@@ -27,6 +27,7 @@ public class Platformer{
 		window.add(panel);
 		panel.startGame();
 		window.setSize(WIDTH, HEIGHT);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.getContentPane().setPreferredSize(new Dimension(WIDTH, HEIGHT));
 		window.setVisible(true);
 		window.pack();
