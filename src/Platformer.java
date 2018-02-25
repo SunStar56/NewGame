@@ -3,25 +3,26 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
-public class Platformer{
+public class Platformer {
 	JFrame window;
 	PFPanel panel;
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 	Timer timer;
-	
-	public Platformer(){
+
+	public Platformer() {
 		window = new JFrame();
 		panel = new PFPanel();
 		setup();
-		
-		
+
 	}
+
 	public static void main(String[] args) {
 		Platformer pf = new Platformer();
+
 	}
-	
-	void setup(){
+
+	void setup() {
 		window = new JFrame("Platform Thing");
 		window.addKeyListener(panel);
 		window.add(panel);
@@ -32,6 +33,6 @@ public class Platformer{
 		window.setVisible(true);
 		window.pack();
 		timer = new Timer(1000 / 60, panel);
-		
+
 	}
 }
