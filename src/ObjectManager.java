@@ -6,16 +6,19 @@ public class ObjectManager {
 	ArrayList<GameObject> objects;
 
 	private int score = 0;
+	Square s;
 
 	long enemyTimer = 0;
 	int enemySpawnTime = 1000;
 
-	public ObjectManager() {
+	public ObjectManager(Square s) {
 		objects = new ArrayList<GameObject>();
+		this.s = s;
 	}
 
 	public void addObject(GameObject steps) {
 		objects.add(steps);
+
 	}
 
 	public void update() {
@@ -24,7 +27,6 @@ public class ObjectManager {
 			o.update();
 		}
 
-		// purgeObjects();
 	}
 
 	public void draw(Graphics g) {
@@ -62,5 +64,10 @@ public class ObjectManager {
 
 	public void reset() {
 		objects.clear();
+	}
+
+	public void setup1() {
+		Steps p1 = new Steps(25, 50, 100, 100);
+		objects.add(p1);
 	}
 }

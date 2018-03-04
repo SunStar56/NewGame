@@ -1,11 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Square {
-	private int x;
-	private int y;
-	private int width;
-	private int height;
+public class Square extends GameObject {
 	boolean isAlive = true;
 	boolean goingUp = false;
 	public boolean left = false;
@@ -22,12 +18,11 @@ public class Square {
 	int yLimit = 500;
 
 	boolean canJump = true;
+	boolean canMoveL = true;
+	boolean canMoveR = true;
 
-	public Square(int x, int y, int w, int h) {
-		this.x = x;
-		this.y = y;
-		this.width = w;
-		this.height = h;
+	public Square(int x, int y, int width, int height) {
+		super(x, y, width, height);
 	}
 
 	public void jump() {
@@ -39,6 +34,15 @@ public class Square {
 	}
 
 	public void update() {
+		super.update();
+		if (x < 50) {
+			canMoveL = false;
+			System.out.println(x + " " + y);
+		}
+		if (x > 750) {
+			canMoveR = false;
+			System.out.println(x + " " + y);
+		}
 		if (left) {
 			x -= xlVelocity;
 		}

@@ -21,16 +21,17 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	final int STATE_5 = 5;
 	final int E_STATE = 6;
 	int state = T_STATE;
+	ObjectManager om;
 
 	public PFPanel() {
 		timer = new Timer(1000 / 60, this);
+		om = new ObjectManager(s);
 	}
 
 	Square s = new Square(50, 50, Square.size, Square.size);
 
 	void startGame() {
 		timer.start();
-
 	}
 
 	public void paintComponent(Graphics g) {
@@ -81,13 +82,16 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 				state = state - 1;
 			}
 		}
-		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+		if (s.canMoveL) {
+			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 
-			s.left = true;
+				s.left = true;
+			}
 		}
-
-		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			s.right = true;
+		if (s.canMoveR) {
+			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				s.right = true;
+			}
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -115,6 +119,8 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	void drawState1(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
+		om.setup1();
+		om.draw(g);
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 550, WINDOW_W, 100);
 		s.draw(g, Color.WHITE);
@@ -144,6 +150,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 550, WINDOW_W, 100);
 		s.draw(g, Color.BLACK);
+
 	}
 
 	void drawState5(Graphics g) {
