@@ -60,7 +60,15 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void actionPerformed(ActionEvent e) {
 		s.update();
+		System.out.println(s.atRest);
 		repaint();
+		if (IsTouching(s.x, s.y, s.x + 50, s.y + 50, 225, 460, 375)) {
+			s.hitPlat = true;
+			System.out.println("WORKS");
+		} else {
+			s.hitPlat = false;
+			System.out.println("called");
+		}
 
 	}
 
@@ -87,6 +95,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 
 				s.left = true;
 			}
+		}
+		if (!s.canMoveL) {
+			s.x = s.x + 5;
 		}
 		if (s.canMoveR) {
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -124,7 +135,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 550, WINDOW_W, 100);
 		s.draw(g, Color.WHITE);
-		System.out.println(s.goingUp);
+		// System.out.println(s.goingUp);
 	}
 
 	void drawState2(Graphics g) {
@@ -159,5 +170,18 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 550, WINDOW_W, 100);
 		s.draw(g, Color.WHITE);
+	}
+
+	public boolean IsTouching(int x, int y, int x2, int y2, int tx, int ty, int tx2) {
+		// Point m = MouseInfo.getPointerInfo().getLocation();
+		// System.out.println("x" + m.x);
+		// System.out.println("y" + m.y);
+		// 250-350
+		if (x >= tx && y < ty && y > ty - 25 && x2 <= tx2) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 }

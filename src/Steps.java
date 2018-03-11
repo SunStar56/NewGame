@@ -17,6 +17,7 @@ public class Steps extends GameObject {
 
 	public void update() {
 		super.update();
+
 	}
 
 }
