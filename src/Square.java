@@ -28,7 +28,7 @@ public class Square extends GameObject {
 	public Square(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		tempX = x;
-		tempY = 50;
+		tempY = y;
 	}
 
 	public void jump() {
