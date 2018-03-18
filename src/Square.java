@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class Square extends GameObject {
 	boolean isAlive = true;
@@ -9,7 +10,9 @@ public class Square extends GameObject {
 
 	int xlVelocity = 5;
 	int xrVelocity = 5;
-	int gravity = 1;
+	int tempX;
+	int tempY;
+	int gravity = 5;
 	int yVelocty = 0;
 	int xVelocty = 0;
 	static int size = 50;
@@ -17,17 +20,19 @@ public class Square extends GameObject {
 	int yLimit = 500;
 
 	boolean atRest = true;
-	boolean hitPlat = false;
+	boolean squareCollision = false;
 	boolean canJump = true;
 	boolean canMoveL = true;
 	boolean canMoveR = true;
 
 	public Square(int x, int y, int width, int height) {
 		super(x, y, width, height);
+		tempX = x;
+		tempY = 50;
 	}
 
 	public void jump() {
-		if (!hitPlat) {
+		if (!squareCollision) {
 			if (canJump) {
 				atRest = false;
 				goingUp = true;
@@ -39,27 +44,36 @@ public class Square extends GameObject {
 
 	public void update() {
 		super.update();
-		if (x < 0) {
-			// System.out.println(x + " left " + y);
-			x += 5;
+		collisionBox.setBounds(tempX, tempY, Square.size, Square.size);
+		if (squareCollision == false) {
+			x = tempX;
+			y = tempY;
+		} else {
+			squareCollision = false;
 		}
-		if (x > 750) {
-			// System.out.println(x + " " + y);
-			x -= 5;
 
+		if (tempX > 750) {
+			tempX -= 5;
 		}
-		if (hitPlat) {
-			yVelocty = 0;
-			y -= yVelocty;
+		if (tempX < 0) {
+			tempX += 5;
+		}
+		if (squareCollision) {
+			// yVelocty = 0;
+			// y -= yVelocty;
+			System.out.println("Collision");
 			yVelocty -= gravity;
 			canJump = true;
 			atRest = true;
+
 		}
 		if (left) {
-			x -= xlVelocity;
+			tempX = x - 10;
+
 		}
 		if (right) {
-			x += xrVelocity;
+			tempX = x + 10;
+			System.out.println(tempX);
 		}
 
 		yVelocty += gravity;
@@ -77,8 +91,12 @@ public class Square extends GameObject {
 	}
 
 	public void draw(Graphics g, Color c) {
+		Graphics2D g2 = (Graphics2D) g;
 		g.setColor(c);
 		g.fillRect(x, y, width, height);
-
+		System.out.println(x + " :x y: " + y);
+		g2.setColor(Color.BLUE);
+		g2.draw(collisionBox);
 	}
+
 }

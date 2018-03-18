@@ -1,6 +1,8 @@
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -29,6 +31,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	Square s = new Square(50, 50, Square.size, Square.size);
+	Square sHB = new Square(40, 40, Square.size + 10, Square.size + 10);
 
 	void startGame() {
 		timer.start();
@@ -62,12 +65,12 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		s.update();
 		System.out.println(s.atRest);
 		repaint();
-		if (IsTouching(s.x, s.y, s.x + 50, s.y + 50, 225, 460, 375)) {
-			s.hitPlat = true;
+
+		if (IsTouching(sHB.x, sHB.y, sHB.x + 50, sHB.y + 50, 225, 460, 375)) {
+			s.squareCollision = true;
 			System.out.println("WORKS");
 		} else {
-			s.hitPlat = false;
-			System.out.println("called");
+			s.squareCollision = false;
 		}
 
 	}
@@ -135,6 +138,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 550, WINDOW_W, 100);
 		s.draw(g, Color.WHITE);
+
 		// System.out.println(s.goingUp);
 	}
 
@@ -173,9 +177,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public boolean IsTouching(int x, int y, int x2, int y2, int tx, int ty, int tx2) {
-		// Point m = MouseInfo.getPointerInfo().getLocation();
-		// System.out.println("x" + m.x);
-		// System.out.println("y" + m.y);
+		Point m = MouseInfo.getPointerInfo().getLocation();
+		System.out.println("x" + m.x);
+		System.out.println("y" + m.y);
 		// 250-350
 		if (x >= tx && y < ty && y > ty - 25 && x2 <= tx2) {
 			return true;
