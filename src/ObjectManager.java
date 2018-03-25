@@ -43,7 +43,6 @@ public class ObjectManager {
 				GameObject square = objects.get(j);
 				if (o1.collisionBox.intersects(square.collisionBox)) {
 					// if ((o1 instanceof Steps) || (square instanceof Steps)) {
-					score++;
 					o1.isAlive = false;
 					square.isAlive = false;
 				}
@@ -66,9 +65,12 @@ public class ObjectManager {
 	}
 
 	public void setup1() {
-		Steps p1 = new Steps(250, 500, 100, 25);
-		objects.add(p1);
-		Steps p2 = new Steps(500, 400, 100, 25);
-		objects.add(p2);
+		Steps ap1 = new Steps(250, 500, 100, 25);
+		objects.add(ap1);
+		Steps ap2 = new Steps(500, 400, 100, 25);
+		objects.add(ap2);
+	}
+	public void setup2() {
+		Steps bp1 = new Steps(1,1,1,1);
 	}
 }

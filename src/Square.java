@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.Objects;
 
 public class Square extends GameObject {
 	boolean isAlive = true;
@@ -12,7 +13,7 @@ public class Square extends GameObject {
 	int xrVelocity = 5;
 	int tempX;
 	int tempY;
-	int gravity = 5;
+	int gravity = 2;
 	int yVelocty = 0;
 	int xVelocty = 0;
 	static int size = 50;
@@ -27,14 +28,13 @@ public class Square extends GameObject {
 
 	public Square(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		tempX = x;
-		tempY = y;
+		x = tempX;
+		y = tempY;
 	}
 
 	public void jump() {
 		if (!squareCollision) {
 			if (canJump) {
-				atRest = false;
 				goingUp = true;
 				yVelocty -= jumpPower;
 				canJump = false;
@@ -53,18 +53,17 @@ public class Square extends GameObject {
 		}
 
 		if (tempX > 750) {
-			tempX -= 5;
+			x -= 10;
 		}
 		if (tempX < 0) {
-			tempX += 5;
+			x += 10;
 		}
 		if (squareCollision) {
-			// yVelocty = 0;
-			// y -= yVelocty;
+			yVelocty = 0;
+			tempY -= yVelocty;
 			System.out.println("Collision");
 			yVelocty -= gravity;
 			canJump = true;
-			atRest = true;
 
 		}
 		if (left) {
@@ -77,15 +76,14 @@ public class Square extends GameObject {
 		}
 
 		yVelocty += gravity;
-		y += yVelocty;
+		tempY += yVelocty;
 		if (yVelocty == 0) {
 			goingUp = false;
 		}
-		if (y >= yLimit) {
-			y = yLimit;
+		if (tempY >= yLimit) {
+			tempY = yLimit;
 			yVelocty = 0;
 			canJump = true;
-			atRest = true;
 		}
 
 	}

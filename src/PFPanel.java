@@ -66,7 +66,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		System.out.println(s.atRest);
 		repaint();
 
-		if (IsTouching(sHB.x, sHB.y, sHB.x + 50, sHB.y + 50, 225, 460, 375)) {
+		if (IsTouching(s.tempX, sHB.y, sHB.x + 50, sHB.y + 50, 225, 460, 375)) {
 			s.squareCollision = true;
 			System.out.println("WORKS");
 		} else {
@@ -138,8 +138,6 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 550, WINDOW_W, 100);
 		s.draw(g, Color.WHITE);
-
-		// System.out.println(s.goingUp);
 	}
 
 	void drawState2(Graphics g) {
