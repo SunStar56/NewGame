@@ -22,6 +22,12 @@ public class Square extends GameObject {
 
 	boolean atRest = true;
 	boolean squareCollision = false;
+	int squareCollisionType = 0;
+	//Key : Coming From the...
+	//* 1 : Left
+	//* 2 : Right
+	//* 3 : Bottom
+	//* 4 : Top
 	boolean canJump = true;
 	boolean canMoveL = true;
 	boolean canMoveR = true;
@@ -33,23 +39,23 @@ public class Square extends GameObject {
 	}
 
 	public void jump() {
-		if (!squareCollision) {
+		//if (!squareCollision) {
 			if (canJump) {
 				goingUp = true;
 				yVelocty -= jumpPower;
 				canJump = false;
 			}
-		}
+		//}
 	}
 
 	public void update() {
 		super.update();
 		collisionBox.setBounds(tempX, tempY, Square.size, Square.size);
-		if (squareCollision == false) {
+		if (!squareCollision) {
 			x = tempX;
 			y = tempY;
 		} else {
-			squareCollision = false;
+			squareCollision = true;
 		}
 
 		if (tempX > 750) {
@@ -59,19 +65,31 @@ public class Square extends GameObject {
 			x += 10;
 		}
 		if (squareCollision) {
-			yVelocty = 0;
-			tempY -= yVelocty;
-			System.out.println("Collision");
-			yVelocty -= gravity;
-			canJump = true;
-
+			y += 2;
+			System.out.println(squareCollision);
+			tempY = y + 5;
+			tempY += 2;
+			
+			if (squareCollisionType == 1) {
+				tempX -= 1;
+			}
+			else if (squareCollisionType == 2) {
+				tempX += 1;
+			}
+			else if (squareCollisionType == 3) {
+				tempY -= 2;
+			}
+			else if (squareCollisionType == 4) {
+				tempY += 5;
+			}
+			squareCollision = false;
 		}
 		if (left) {
-			tempX = x - 10;
+			tempX = x - 5;
 
 		}
 		if (right) {
-			tempX = x + 10;
+			tempX = x + 5;
 			System.out.println(tempX);
 		}
 

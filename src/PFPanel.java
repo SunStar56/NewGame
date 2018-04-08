@@ -63,15 +63,10 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void actionPerformed(ActionEvent e) {
 		s.update();
-		System.out.println(s.atRest);
+		IsTouching(1, 1, 1, 1, 1, 1, 1);
+		om.checkCollision();
+		System.out.println("checked");
 		repaint();
-
-		if (IsTouching(s.tempX, sHB.y, sHB.x + 50, sHB.y + 50, 225, 460, 375)) {
-			s.squareCollision = true;
-			System.out.println("WORKS");
-		} else {
-			s.squareCollision = false;
-		}
 
 	}
 

@@ -2,6 +2,8 @@
 import java.awt.Graphics;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class ObjectManager {
 	ArrayList<GameObject> objects;
 
@@ -38,20 +40,28 @@ public class ObjectManager {
 
 	public void checkCollision() {
 		for (int i = 0; i < objects.size(); i++) {
-			for (int j = i + 1; j < objects.size(); j++) {
 				GameObject o1 = objects.get(i);
-				GameObject square = objects.get(j);
-				if (o1.collisionBox.intersects(square.collisionBox)) {
-					// if ((o1 instanceof Steps) || (square instanceof Steps)) {
-					o1.isAlive = false;
-					square.isAlive = false;
+				if (o1.collisionBox.intersects(s.collisionBox)) {
+					//results
+					System.out.println("Did the thing");
+					if (s.collisionBox.x < o1.collisionBox.x && s.collisionBox.y > o1.collisionBox.y) {
+						s.squareCollisionType =  1;
+					}
+					if (s.collisionBox.x > o1.collisionBox.x) {
+						s.squareCollisionType = 2;
+					}
+					if (s.collisionBox.y < o1.collisionBox.y) {
+						s.squareCollisionType = 3;
+					}
+					if (s.collisionBox.y > o1.collisionBox.y) {
+						s.squareCollisionType = 4;
+					}
+					s.squareCollision = true;
+					
 				}
-
-			}
 		}
 	}
-	// }
-
+	
 	public int getScore() {
 		return score;
 	}
@@ -65,7 +75,9 @@ public class ObjectManager {
 	}
 
 	public void setup1() {
+		Steps afloor = new Steps(0, 600, 800, 50);
 		Steps ap1 = new Steps(250, 500, 100, 25);
+		ap1.collisionBox.setBounds(250, 500, 100, 25);
 		objects.add(ap1);
 		Steps ap2 = new Steps(500, 400, 100, 25);
 		objects.add(ap2);
