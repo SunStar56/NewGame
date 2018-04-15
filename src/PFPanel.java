@@ -63,9 +63,8 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void actionPerformed(ActionEvent e) {
 		s.update();
-		IsTouching(1, 1, 1, 1, 1, 1, 1);
 		om.checkCollision();
-		System.out.println("checked");
+		//System.out.println("checked");
 		repaint();
 
 	}
@@ -73,7 +72,6 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -95,7 +93,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 		if (!s.canMoveL) {
-			s.x = s.x + 5;
+			//s.x = s.x + 5;
 		}
 		if (s.canMoveR) {
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
@@ -169,16 +167,4 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		s.draw(g, Color.WHITE);
 	}
 
-	public boolean IsTouching(int x, int y, int x2, int y2, int tx, int ty, int tx2) {
-		Point m = MouseInfo.getPointerInfo().getLocation();
-		System.out.println("x" + m.x);
-		System.out.println("y" + m.y);
-		// 250-350
-		if (x >= tx && y < ty && y > ty - 25 && x2 <= tx2) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}
 }

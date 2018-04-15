@@ -43,14 +43,15 @@ public class ObjectManager {
 				GameObject o1 = objects.get(i);
 				if (o1.collisionBox.intersects(s.collisionBox)) {
 					//results
-					System.out.println("Did the thing");
-					if (s.collisionBox.x < o1.collisionBox.x && s.collisionBox.y > o1.collisionBox.y) {
+					//s.collisionBox.setBounds(s.x, o1.y - s.height, 50, 50);
+					//System.out.println("Did the thing");
+					if (s.collisionBox.x < o1.collisionBox.x && s.collisionBox.y < o1.collisionBox.y) {
 						s.squareCollisionType =  1;
 					}
-					if (s.collisionBox.x > o1.collisionBox.x) {
+					if (s.collisionBox.x > o1.collisionBox.x && s.collisionBox.y < o1.collisionBox.y) {
 						s.squareCollisionType = 2;
 					}
-					if (s.collisionBox.y < o1.collisionBox.y) {
+					if (s.collisionBox.y < o1.collisionBox.y && s.collisionBox.x > o1.collisionBox.x) {
 						s.squareCollisionType = 3;
 					}
 					if (s.collisionBox.y > o1.collisionBox.y) {
@@ -76,6 +77,7 @@ public class ObjectManager {
 
 	public void setup1() {
 		Steps afloor = new Steps(0, 600, 800, 50);
+		objects.add(afloor);
 		Steps ap1 = new Steps(250, 500, 100, 25);
 		ap1.collisionBox.setBounds(250, 500, 100, 25);
 		objects.add(ap1);
