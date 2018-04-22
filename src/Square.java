@@ -37,7 +37,9 @@ public class Square extends GameObject {
 		x = tempX;
 		y = tempY;
 	}
-
+	public int getY() {
+		return y;
+	}
 	public void jump() {
 		//if (!squareCollision) {
 			if (canJump) {
@@ -45,19 +47,18 @@ public class Square extends GameObject {
 				yVelocty -= jumpPower;
 				canJump = false;
 			}
-		//}
-	}
+		}
+	//}
 
 	public void update() {
 		super.update();
-		collisionBox.setBounds(tempX, tempY, Square.size, Square.size);
+		collisionBox.setBounds(x, y, Square.size, Square.size);
 		if (!squareCollision) {
 			System.out.println("not colliding");
 			x = tempX;
 			y = tempY;
 		} else {
 			squareCollision = true;
-			//y = tempY - 5;
 		}
 
 		if (tempX > 750) {
@@ -68,22 +69,23 @@ public class Square extends GameObject {
 		}
 		if (squareCollision) {
 			System.out.println("colliding");
-			tempY += 2;
+			tempY += yVelocty;
 			System.out.println(tempY);
 			if (squareCollisionType == 1) {
 				System.out.println("colliding 1");
-				tempX = x += 5;
+				//tempX = tempX += 5;
 			}
 			else if (squareCollisionType == 2) {
-				tempX = x -= 5;
+				//tempX = tempX -= 5;
 			}
 			else if (squareCollisionType == 3) {
 				System.out.println("colliding 3");
-				tempY += 2;
+				tempY -= 2;
 			}
 			else if (squareCollisionType == 4) {
 				System.out.println("colliding 4");
-				tempY = y;
+				tempY =  tempY+ y;
+				tempX = x;
 			}
 			squareCollision = false;
 			
@@ -115,7 +117,7 @@ public class Square extends GameObject {
 	public void draw(Graphics g, Color c) {
 		Graphics2D g2 = (Graphics2D) g;
 		g.setColor(c);
-		g.fillRect(x, y, width, height);
+		g.fillRect(tempX, tempY, width, height);
 		//System.out.println(x + " :x y: " + y);
 		g2.setColor(Color.BLUE);
 		g2.draw(collisionBox);

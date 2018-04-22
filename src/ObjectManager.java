@@ -43,17 +43,19 @@ public class ObjectManager {
 				GameObject o1 = objects.get(i);
 				if (o1.collisionBox.intersects(s.collisionBox)) {
 					//results
+					//s.tempY = s.getY() + o1.y;
+					//System.out.println(s.y);
 					//s.collisionBox.setBounds(s.x, o1.y - s.height, 50, 50);
 					//System.out.println("Did the thing");
-					if (s.collisionBox.x < o1.collisionBox.x && s.collisionBox.y < o1.collisionBox.y) {
+					if (s.collisionBox.x < o1.collisionBox.x && s.collisionBox.y <= o1.collisionBox.y) {
 						s.squareCollisionType =  1;
 					}
-					if (s.collisionBox.x > o1.collisionBox.x && s.collisionBox.y < o1.collisionBox.y) {
+					if (s.collisionBox.x > o1.collisionBox.x && s.collisionBox.y <= o1.collisionBox.y) {
 						s.squareCollisionType = 2;
 					}
-					if (s.collisionBox.y < o1.collisionBox.y && s.collisionBox.x > o1.collisionBox.x) {
-						s.squareCollisionType = 3;
-					}
+					//if (s.collisionBox.y < o1.collisionBox.y){
+						//s.squareCollisionType = 3;
+					//}
 					if (s.collisionBox.y > o1.collisionBox.y) {
 						s.squareCollisionType = 4;
 					}
