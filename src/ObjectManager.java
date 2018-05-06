@@ -2,8 +2,6 @@
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 public class ObjectManager {
 	ArrayList<GameObject> objects;
 
@@ -48,7 +46,7 @@ public class ObjectManager {
 					//System.out.println(s.y);
 					//s.collisionBox.setBounds(s.x, o1.y - s.height, 50, 50);
 					//System.out.println("Did the thing");
-					if (s.x + s.width > o1.collisionBox.x && s.y > o1.collisionBox.y && s.y < o1.collisionBox.y + o1.collisionBox.height && s.x < o1.collisionBox.x + o1.collisionBox.width) {
+					if (s.collisionBox.x + s.collisionBox.width > o1.collisionBox.x && s.y > o1.collisionBox.y && s.y < o1.collisionBox.y + o1.collisionBox.height && s.x < o1.collisionBox.x + o1.collisionBox.width) {
 						
 					}
 					s.squareCollision = true;
@@ -72,6 +70,7 @@ public class ObjectManager {
 	public void setup1() {
 		Steps afloor = new Steps(0, 600, 800, 50);
 		objects.add(afloor);
+		afloor.collisionBox.setBounds(0, 600, 800, 50);
 		Steps ap1 = new Steps(250, 500, 100, 25);
 		ap1.collisionBox.setBounds(250, 500, 100, 25);
 		objects.add(ap1);

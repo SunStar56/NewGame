@@ -13,8 +13,8 @@ import javax.swing.Timer;
 
 public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	Timer timer;
-	static final int WINDOW_W = 800;
-	static final int WINDOW_H = 600;
+	public static final int WINDOW_W = 800;
+	public static final int WINDOW_H = 600;
 	final int T_STATE = 0;
 	final int STATE_1 = 1;
 	final int STATE_2 = 2;
@@ -22,11 +22,12 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	final int STATE_4 = 4;
 	final int STATE_5 = 5;
 	final int E_STATE = 6;
-	boolean moveRight;
-	boolean moveLeft;
+	public boolean moveRight = false;
+	public boolean moveLeft = false;
 	boolean setupcomplete;
-	Square s = new Square(50, 50, Square.size, Square.size);
-	Square sHB = new Square(40, 40, Square.size + 10, Square.size + 10);
+	Square s;
+	Square sHB;
+	
 	int state = T_STATE;
 	ObjectManager om;
 
@@ -63,11 +64,17 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		s.update();
-		om.checkCollision();
+		
 		if (setupcomplete == false) {
 			om.setup1();
 			setupcomplete = true;
+		s = new Square(50, 50, Square.size, Square.size);
+		om.s = new Square(50, 50, Square.size, Square.size);
+		sHB = new Square(40, 40, Square.size + 10, Square.size + 10);
+		if (state != T_STATE || state != E_STATE) {
+			s.update();
+			om.checkCollision();
+		}
 		}
 		//System.out.println("checked");
 		repaint();
@@ -84,11 +91,13 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		if (e.getKeyCode() == KeyEvent.VK_E) {
 			if (state != 6) {
 				state = state + 1;
+			}else {
+				if (state == E_STATE) {
+					state = T_STATE;
+					setupcomplete = true;
+				}
 			}
-			if (state == E_STATE) {
-				state = T_STATE;
-				setupcomplete = true;
-			}
+			
 		}
 		if (e.getKeyCode() == KeyEvent.VK_Q) {
 			if (state != 0) {
@@ -97,7 +106,6 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		}
 	
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-
 				moveLeft = true;
 			}
 		

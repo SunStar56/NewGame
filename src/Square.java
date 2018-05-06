@@ -68,6 +68,8 @@ public class Square extends GameObject {
 			squareCollision = false;
 			
 		}else {
+			tempX = x;
+			tempY = y;
 			if (left) {
 				tempX = x - 5;
 			}
