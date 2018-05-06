@@ -13,8 +13,8 @@ import javax.swing.Timer;
 
 public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	Timer timer;
-	final int WINDOW_W = 800;
-	final int WINDOW_H = 600;
+	static final int WINDOW_W = 800;
+	static final int WINDOW_H = 600;
 	final int T_STATE = 0;
 	final int STATE_1 = 1;
 	final int STATE_2 = 2;
@@ -22,6 +22,11 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	final int STATE_4 = 4;
 	final int STATE_5 = 5;
 	final int E_STATE = 6;
+	boolean moveRight;
+	boolean moveLeft;
+	boolean setupcomplete;
+	Square s = new Square(50, 50, Square.size, Square.size);
+	Square sHB = new Square(40, 40, Square.size + 10, Square.size + 10);
 	int state = T_STATE;
 	ObjectManager om;
 
@@ -30,16 +35,12 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		om = new ObjectManager(s);
 	}
 
-	Square s = new Square(50, 50, Square.size, Square.size);
-	Square sHB = new Square(40, 40, Square.size + 10, Square.size + 10);
-
 	void startGame() {
 		timer.start();
 	}
 
 	public void paintComponent(Graphics g) {
 		if (state != T_STATE && state != E_STATE) {
-
 		}
 		if (state == T_STATE) {
 			drawTState(g);
@@ -64,6 +65,10 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	public void actionPerformed(ActionEvent e) {
 		s.update();
 		om.checkCollision();
+		if (setupcomplete == false) {
+			om.setup1();
+			setupcomplete = true;
+		}
 		//System.out.println("checked");
 		repaint();
 
@@ -80,31 +85,34 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 			if (state != 6) {
 				state = state + 1;
 			}
+			if (state == E_STATE) {
+				state = T_STATE;
+				setupcomplete = true;
+			}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_Q) {
 			if (state != 0) {
 				state = state - 1;
 			}
 		}
-		if (s.canMoveL) {
+	
 			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 
-				s.left = true;
+				moveLeft = true;
 			}
-		}
-		if (!s.canMoveL) {
+		
+	
 			//s.x = s.x + 5;
-		}
-		if (s.canMoveR) {
+		
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				s.right = true;
+				moveRight = true;
 			}
-		}
 
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			s.jump();
 		}
-	}
+		}
+
 
 	@Override
 	public void keyReleased(KeyEvent e) {
@@ -128,16 +136,12 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
 		om.setup1();
 		om.draw(g);
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 550, WINDOW_W, 100);
 		s.draw(g, Color.WHITE);
 	}
 
 	void drawState2(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(0, 550, WINDOW_W, 100);
 		s.draw(g, Color.BLACK);
 
 	}
@@ -145,16 +149,12 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	void drawState3(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 550, WINDOW_W, 100);
 		s.draw(g, Color.WHITE);
 	}
 
 	void drawState4(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(0, 550, WINDOW_W, 100);
 		s.draw(g, Color.BLACK);
 
 	}
@@ -162,8 +162,6 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	void drawState5(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 550, WINDOW_W, 100);
 		s.draw(g, Color.WHITE);
 	}
 

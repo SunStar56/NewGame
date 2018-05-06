@@ -11,7 +11,6 @@ public class Platformer {
 	Timer timer;
 
 	public Platformer() {
-		window = new JFrame();
 		panel = new PFPanel();
 		setup();
 

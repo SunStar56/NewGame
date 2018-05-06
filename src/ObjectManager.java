@@ -35,6 +35,7 @@ public class ObjectManager {
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject o = objects.get(i);
 			o.draw(g);
+			s.draw(g);
 		}
 	}
 
