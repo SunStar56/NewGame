@@ -35,3 +35,5 @@
 // E_STATE, the state = T_STATE and setup complete = false.
 // -if there is no collision we want to assign the values of the collision box
 // to the values of x
+
+// EVERYTHING IS DONE!!!
