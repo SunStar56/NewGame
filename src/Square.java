@@ -1,13 +1,10 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.Objects;
 
 public class Square extends GameObject {
 	boolean isAlive = true;
 	boolean goingUp = false;
-	public boolean left = false;
-	public boolean right = false;
 	int tempX;
 	int tempY;
 	int gravity = 2;
@@ -18,42 +15,41 @@ public class Square extends GameObject {
 	boolean atRest = true;
 	boolean squareCollision = false;
 	int squareCollisionType = 0;
-	//Key : Coming From the...
-	//* 1 : Left
-	//* 2 : Right
-	//* 3 : Bottom
-	//* 4 : Top
+	// Key : Coming From the...
+	// * 1 : Left
+	// * 2 : Right
+	// * 3 : Bottom
+	// * 4 : Top
 
 	public Square(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		x = tempX;
 		y = tempY;
 	}
+
 	public int getY() {
 		return y;
 	}
+
 	public void jump() {
-		//if (!squareCollision) {
-			
-		//}
+		// if (!squareCollision) {
+
+		// }
 	}
+
 	public void moveLeft(int speed) {
 		tempX = x - speed;
+		System.out.println("Called moveLeft");
 	}
+
 	public void moveRight(int speed) {
 		tempX = x + speed;
+		System.out.println("Called moveRight");
 	}
 
 	public void update() {
 		super.update();
-		collisionBox.setBounds(tempX, tempY, Square.size, Square.size);
-		if (!squareCollision) {
-			System.out.println("not colliding");
-			x = tempX;
-			y = tempY;
-		} else {
-			squareCollision = true;
-		}
+		collisionBox.setBounds(tempX, tempY += gravity, Square.size, Square.size);
 
 		if (tempX > 750) {
 			x -= 10;
@@ -62,37 +58,36 @@ public class Square extends GameObject {
 			x += 10;
 		}
 		if (squareCollision) {
+			squareCollision = true;
 			System.out.println("colliding");
 			tempY += yVelocty;
 			System.out.println(tempY);
 			squareCollision = false;
-			
-		}else {
-			tempX = x;
-			tempY = y;
-			if (left) {
-				tempX = x - 5;
-			}
-			if (right) {
-				tempX = x + 5;
-			}
+
+		} else {
+			x = (int) collisionBox.getX();
+			y = (int) collisionBox.getY();
+			// tempY = tempY - yVelocty;
+			System.out.println("not colliding");
+			yVelocty += gravity;
+			// if (!squareCollision) {
+			tempY += yVelocty;
 		}
 
-		yVelocty += gravity;
-		//if (!squareCollision) {
-			tempY += yVelocty;
-	//	}
+		// }
 		if (yVelocty == 0) {
 			goingUp = false;
 		}
 
+		tempX = x;
+		tempY = y;
 	}
 
 	public void draw(Graphics g, Color c) {
 		Graphics2D g2 = (Graphics2D) g;
 		g.setColor(c);
 		g.fillRect(x, y, width, height);
-		//System.out.println(x + " :x y: " + y);
+		System.out.println(x + " :x y: " + y);
 		g2.setColor(Color.BLUE);
 		g2.draw(collisionBox);
 	}

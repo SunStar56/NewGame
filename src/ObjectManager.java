@@ -6,6 +6,7 @@ public class ObjectManager {
 	ArrayList<GameObject> objects;
 
 	private int score = 0;
+	boolean setup1complete = false;
 	Square s;
 
 	long enemyTimer = 0;
@@ -26,6 +27,7 @@ public class ObjectManager {
 			GameObject o = objects.get(i);
 			o.update();
 		}
+		s.update();
 
 	}
 
@@ -39,22 +41,24 @@ public class ObjectManager {
 
 	public void checkCollision() {
 		for (int i = 0; i < objects.size(); i++) {
-				GameObject o1 = objects.get(i);
-				if (o1.collisionBox.intersects(s.collisionBox)) {
-					//results
-					//s.tempY = s.getY() + o1.y;
-					//System.out.println(s.y);
-					//s.collisionBox.setBounds(s.x, o1.y - s.height, 50, 50);
-					//System.out.println("Did the thing");
-					if (s.collisionBox.x + s.collisionBox.width > o1.collisionBox.x && s.y > o1.collisionBox.y && s.y < o1.collisionBox.y + o1.collisionBox.height && s.x < o1.collisionBox.x + o1.collisionBox.width) {
-						
-					}
-					s.squareCollision = true;
-					
+			GameObject o1 = objects.get(i);
+			if (o1.collisionBox.intersects(s.collisionBox)) {
+				// results
+				// s.tempY = s.getY() + o1.y;
+				// System.out.println(s.y);
+				// s.collisionBox.setBounds(s.x, o1.y - s.height, 50, 50);
+				// System.out.println("Did the thing");
+				if (s.collisionBox.x + s.collisionBox.width > o1.collisionBox.x && s.y > o1.collisionBox.y
+						&& s.y < o1.collisionBox.y + o1.collisionBox.height
+						&& s.x < o1.collisionBox.x + o1.collisionBox.width) {
+
 				}
+				s.squareCollision = true;
+
+			}
 		}
 	}
-	
+
 	public int getScore() {
 		return score;
 	}
@@ -68,16 +72,22 @@ public class ObjectManager {
 	}
 
 	public void setup1() {
-		Steps afloor = new Steps(0, 600, 800, 50);
-		objects.add(afloor);
-		afloor.collisionBox.setBounds(0, 600, 800, 50);
-		Steps ap1 = new Steps(250, 500, 100, 25);
-		ap1.collisionBox.setBounds(250, 500, 100, 25);
-		objects.add(ap1);
-		Steps ap2 = new Steps(500, 400, 100, 25);
-		objects.add(ap2);
+		if (!setup1complete) {
+			Steps afloor = new Steps(0, 600, 800, 50);
+			afloor.collisionBox.setBounds(0, 600, 800, 50);
+			objects.add(afloor);
+			Steps ap1 = new Steps(250, 500, 100, 25);
+			ap1.collisionBox.setBounds(250, 500, 100, 25);
+			objects.add(ap1);
+			Steps ap2 = new Steps(500, 400, 100, 25);
+			ap2.collisionBox.setBounds(500, 400, 100, 25);
+			objects.add(ap2);
+			System.out.println(setup1complete);
+			setup1complete = true;
+		}
 	}
+
 	public void setup2() {
-		Steps bp1 = new Steps(1,1,1,1);
+		// Steps bp1 = new Steps(1, 1, 1, 1);
 	}
 }
