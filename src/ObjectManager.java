@@ -82,7 +82,7 @@ public class ObjectManager {
 			Steps ap2 = new Steps(500, 400, 100, 25);
 			ap2.collisionBox.setBounds(500, 400, 100, 25);
 			objects.add(ap2);
-			System.out.println(setup1complete);
+			// System.out.println(setup1complete);
 			setup1complete = true;
 		}
 	}

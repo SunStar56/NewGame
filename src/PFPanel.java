@@ -22,6 +22,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	final int E_STATE = 6;
 	public static boolean moveRight = false;
 	public static boolean moveLeft = false;
+	public static boolean jump = false;
 	boolean setupcomplete;
 	Square s;
 	Square sHB;
@@ -75,6 +76,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		if (moveRight == true) {
 			s.moveRight(5);
 		}
+		if (jump == true) {
+			s.jump();
+		}
 
 		if (state != T_STATE || state != E_STATE) {
 			om.update();
@@ -121,7 +125,8 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-			s.jump();
+			jump = true;
+			System.out.println("jump");
 		}
 	}
 
@@ -133,6 +138,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			moveRight = false;
+		}
+		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			jump = false;
 		}
 
 	}
