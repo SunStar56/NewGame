@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 public class Square extends GameObject {
 	boolean isAlive = true;
 	boolean goingUp = false;
+	boolean moveRight;
+	boolean moveLeft;
 	int tempX;
 	int tempY;
 	int gravity = 2;
@@ -32,32 +34,42 @@ public class Square extends GameObject {
 		return y;
 	}
 
-	public void jump() {
-		if (!canJump) {
-			goingUp = true;
-			tempY -= (jumpPower + yVelocty);
-			yVelocty += 1;
-			System.out.println(yVelocty);
-
-			canJump = false;
-		} else {
+	public void jump(int height) {
+		for (int i = 0; i < height; i++) {
+			if (canJump && yVelocty != height) {
+				int tempVel = yVelocty += 1;
+				goingUp = true;
+				tempY -= (jumpPower + (tempVel-yVelocty));
+				
+				System.out.println(yVelocty);
+				y = tempY;
+		
+			} else {
+				canJump = false;
+			}
 		}
+		
 	}
 
 	public void moveLeft(int speed) {
 		tempX = x - speed;
 		System.out.println("Called moveLeft");
+		moveLeft = true;
+		moveRight = false;
 	}
 
 	public void moveRight(int speed) {
 		tempX = x + speed;
 		System.out.println("Called moveRight");
+		moveRight = true;
+		moveLeft = false;
 	}
 
 	public void update() {
 		super.update();
-		collisionBox.setBounds(tempX, tempY += gravity, Square.size, Square.size);
+		collisionBox.setBounds(tempX, tempY += gravity + 2, Square.size, Square.size);
 
+		
 		if (tempX > 750) {
 			x -= 10;
 		}
@@ -69,13 +81,13 @@ public class Square extends GameObject {
 			canJump = true;
 			System.out.println("colliding");
 
-			// System.out.println(tempY);
-			// squareCollision = false;
+			 System.out.println(tempY);
+			 squareCollision = false;
 
 		} else {
 			yVelocty = 0;
 			x = (int) collisionBox.getX();
-			y = (int) collisionBox.getY();
+			y = (int) collisionBox.getY() - 2;
 			// tempY = tempY - yVelocty;
 			// System.out.println("not colliding");
 			yVelocty += gravity;

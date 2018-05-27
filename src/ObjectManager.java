@@ -48,9 +48,7 @@ public class ObjectManager {
 				// System.out.println(s.y);
 				// s.collisionBox.setBounds(s.x, o1.y - s.height, 50, 50);
 				// System.out.println("Did the thing");
-				if (s.collisionBox.x + s.collisionBox.width > o1.collisionBox.x && s.y > o1.collisionBox.y
-						&& s.y < o1.collisionBox.y + o1.collisionBox.height
-						&& s.x < o1.collisionBox.x + o1.collisionBox.width) {
+				if (s.collisionBox.x + s.collisionBox.width > o1.collisionBox.x && s.collisionBox.y + s.collisionBox.height > o1.collisionBox.y && s.collisionBox.y + s.collisionBox.height < o1.collisionBox.y + o1.collisionBox.height && s.collisionBox.x < o1.collisionBox.x) {
 
 				}
 				s.squareCollision = true;
