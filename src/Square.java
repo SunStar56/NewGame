@@ -7,6 +7,7 @@ public class Square extends GameObject {
 	boolean goingUp = false;
 	boolean moveRight;
 	boolean moveLeft;
+	boolean stuck = false;
 	int tempX;
 	int tempY;
 	int gravity = 2;
@@ -34,20 +35,22 @@ public class Square extends GameObject {
 		return y;
 	}
 
-	public void jump(int height) {
-		for (int i = 0; i < height; i++) {
-			if (canJump && yVelocty != height) {
-				int tempVel = yVelocty += 1;
-				goingUp = true;
-				tempY -= (jumpPower + (tempVel-yVelocty));
-				
-				System.out.println(yVelocty);
-				y = tempY;
-		
-			} else {
-				canJump = false;
-			}
+	public void jump() {
+		//for (int i = 0; i < 10; i++) {
+		goingUp = true;
+		if (goingUp) {
+			
+			tempY -=jumpPower;
+			canJump = false;
+			yVelocty +=gravity;
+			y+=yVelocty;
 		}
+		
+		System.out.println(y);	
+		if (yVelocty == 0) {
+				goingUp = false;
+			}
+		//}
 		
 	}
 
@@ -77,18 +80,24 @@ public class Square extends GameObject {
 			x += 10;
 		}
 		if (squareCollision) {
-			squareCollision = true;
-			canJump = true;
-			System.out.println("colliding");
-
-			 System.out.println(tempY);
+			if (stuck) {
+				y = (int) collisionBox.getY() - 2;
+				squareCollision = true;
+				canJump = true;
+			}
+			else {
+				squareCollision = true;
+				canJump = true;
+				x = (int) collisionBox.getX();
+			}
 			 squareCollision = false;
 
 		} else {
+			stuck = false;
 			yVelocty = 0;
 			x = (int) collisionBox.getX();
 			y = (int) collisionBox.getY() - 2;
-			// tempY = tempY - yVelocty;
+			// 
 			// System.out.println("not colliding");
 			yVelocty += gravity;
 			// if (!squareCollision) {

@@ -77,7 +77,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 			s.moveRight(5);
 		}
 		if (jump == true) {
-			s.jump(10);
+			s.jump();
 		}
 
 		if (state != T_STATE || state != E_STATE) {
