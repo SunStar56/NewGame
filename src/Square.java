@@ -13,7 +13,7 @@ public class Square extends GameObject {
 	int gravity = 2;
 	int yVelocty = 0;
 	static int size = 50;
-	int jumpPower = 20;
+	int jumpPower = 100;
 	int yLimit = 500;
 	boolean atRest = true;
 	boolean squareCollision = false;
@@ -36,34 +36,39 @@ public class Square extends GameObject {
 	}
 
 	public void jump() {
-		//for (int i = 0; i < 10; i++) {
+	
 		goingUp = true;
-		if (goingUp) {
-			
+		if (goingUp && canJump) {
 			tempY -=jumpPower;
 			canJump = false;
 			yVelocty +=gravity;
 			y+=yVelocty;
+		}
+		else {
+			yVelocty -= gravity;
+		}
+		if (canJump) {
+				goingUp = true;
+				yVelocty -=jumpPower;
+				canJump=false;
 		}
 		
 		System.out.println(y);	
 		if (yVelocty == 0) {
 				goingUp = false;
 			}
-		//}
+		}
 		
-	}
+	
 
 	public void moveLeft(int speed) {
 		tempX = x - speed;
-		System.out.println("Called moveLeft");
 		moveLeft = true;
 		moveRight = false;
 	}
 
 	public void moveRight(int speed) {
 		tempX = x + speed;
-		System.out.println("Called moveRight");
 		moveRight = true;
 		moveLeft = false;
 	}
@@ -86,6 +91,7 @@ public class Square extends GameObject {
 				canJump = true;
 			}
 			else {
+				//yVelocty -= gravity;
 				squareCollision = true;
 				canJump = true;
 				x = (int) collisionBox.getX();
@@ -105,9 +111,6 @@ public class Square extends GameObject {
 		}
 
 		// }
-		if (yVelocty == 0) {
-			goingUp = false;
-		}
 
 		tempX = x;
 		tempY = y;

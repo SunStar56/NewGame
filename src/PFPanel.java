@@ -114,19 +114,23 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 
+		if (e.getKeyCode( ) == KeyEvent.VK_R) {
+			
+		}
+		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			moveLeft = true;
-			System.out.println("left");
+			//System.out.println("left");
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			moveRight = true;
-			System.out.println("right");
+			//System.out.println("right");
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			jump = true;
-			System.out.println("jump");
+			//System.out.println("jump");
 		}
 	}
 
