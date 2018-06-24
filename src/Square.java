@@ -7,6 +7,8 @@ public class Square extends GameObject {
 	boolean goingUp = false;
 	boolean moveRight;
 	boolean moveLeft;
+	boolean touchGoal = false;
+	boolean finishLevel = false;
 	boolean stuck = false;
 	int tempX;
 	int tempY;
@@ -77,6 +79,9 @@ public class Square extends GameObject {
 		super.update();
 		collisionBox.setBounds(tempX, tempY += gravity + 2, Square.size, Square.size);
 
+		if (touchGoal) {
+			finishLevel = true;
+		}
 		
 		if (tempX > 750) {
 			x -= 10;

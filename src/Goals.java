@@ -11,7 +11,7 @@ public class Goals extends GameObject {
 
 	public void draw(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Color.BLUE);
+		g2.setColor(Color.YELLOW);
 		g2.fillRect(x, y, width, height);
 	}
 

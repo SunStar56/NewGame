@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,10 +21,11 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	final int STATE_4 = 4;
 	final int STATE_5 = 5;
 	final int E_STATE = 6;
+	Font nextScreenText;
 	public static boolean moveRight = false;
 	public static boolean moveLeft = false;
 	public static boolean jump = false;
-	boolean setupcomplete;
+	boolean setupcomplete1;
 	Square s;
 	Square sHB;
 
@@ -34,6 +36,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 		s = new Square(50, 50, Square.size, Square.size);
 		om = new ObjectManager(s);
+		nextScreenText = new Font("Arial", Font.PLAIN, 36);
 
 		sHB = new Square(40, 40, Square.size + 10, Square.size + 10);
 	}
@@ -43,8 +46,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void paintComponent(Graphics g) {
-		if (state != T_STATE && state != E_STATE) {
-		}
+			
 		if (state == T_STATE) {
 			drawTState(g);
 		}
@@ -63,12 +65,14 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		if (state == STATE_5) {
 			drawState5(g);
 		}
+		
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (setupcomplete == false) {
+		if (setupcomplete1 == false) {
 			om.setup1();
-			setupcomplete = true;
+			setupcomplete1 = true;
 		}
 		if (moveLeft == true) {
 			s.moveLeft(5);
@@ -79,7 +83,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		if (jump == true) {
 			s.jump();
 		}
-
+		
+		
+		
 		if (state != T_STATE || state != E_STATE) {
 			om.update();
 			om.checkCollision();
@@ -98,15 +104,19 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_E) {
-			if (state != E_STATE) {
+			if (state != T_STATE && s.finishLevel == true) {
 				state = state + 1;
+				s.finishLevel = false;
 			} else {
 				if (state == E_STATE) {
 					state = T_STATE;
-					setupcomplete = false;
+					setupcomplete1 = false;
+				}
+				if (state == T_STATE) {
+					state = 1;
 				}
 			}
-
+System.out.println(s.finishLevel);
 		}
 		if (e.getKeyCode() == KeyEvent.VK_Q) {
 			if (state != T_STATE) {
@@ -114,8 +124,11 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 			}
 		}
 
-		if (e.getKeyCode( ) == KeyEvent.VK_R) {
-			
+		if (e.getKeyCode( ) == KeyEvent.VK_R ) {
+			if (state == STATE_1 && s.tempX != 50 && s.tempY != 100) {
+				s.tempX = 50;
+				s.tempY = 100;
+			}
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
