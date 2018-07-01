@@ -6,10 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
 public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	Timer timer;
 	public static final int WINDOW_W = 800;
@@ -21,6 +19,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	final int STATE_4 = 4;
 	final int STATE_5 = 5;
 	final int E_STATE = 6;
+	int setuplvl = 1;
 	Font nextScreenText;
 	public static boolean moveRight = false;
 	public static boolean moveLeft = false;
@@ -28,10 +27,8 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	boolean setupcomplete1;
 	Square s;
 	Square sHB;
-
 	int state = T_STATE;
 	ObjectManager om;
-
 	public PFPanel() {
 		timer = new Timer(1000 / 60, this);
 		s = new Square(50, 50, Square.size, Square.size);
@@ -40,11 +37,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 
 		sHB = new Square(40, 40, Square.size + 10, Square.size + 10);
 	}
-
 	void startGame() {
 		timer.start();
 	}
-
 	public void paintComponent(Graphics g) {
 			
 		if (state == T_STATE) {
@@ -68,7 +63,6 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		
 		
 	}
-
 	public void actionPerformed(ActionEvent e) {
 		if (setupcomplete1 == false) {
 			om.setup1();
@@ -83,7 +77,15 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		if (jump == true) {
 			s.jump();
 		}
-		
+		if (s.finishLevel == true) {
+			om.setup(state + 1);
+			setuplevels();
+			if (state == STATE_1 || state == STATE_2 && s.tempX != 50 && s.tempY != 100 && e.getSource() == null) {
+				s.tempX = 50;
+				s.tempY = 100;	
+		}
+			s.finishLevel = false;
+		}
 		
 		
 		if (state != T_STATE || state != E_STATE) {
@@ -91,65 +93,58 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 			om.checkCollision();
 
 		}
-		// System.out.println("checked");
+
 		repaint();
-
+}
+	public void setuplevels() {
+		om.s = s;
+		
 	}
-
-	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 	}
-
-	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_E) {
-			if (state != T_STATE && s.finishLevel == true) {
-				state = state + 1;
+	if (state != T_STATE && s.finishLevel == true) {
+			om.setup(state +  1);	
+			state = state + 1;
+				s.tempX = 50;
+				s.tempY = 100;
 				s.finishLevel = false;
-			} else {
-				if (state == E_STATE) {
-					state = T_STATE;
-					setupcomplete1 = false;
-				}
+	} //else {
+		//		if (state == E_STATE) {
+		//			state = T_STATE;
+		//			setupcomplete1 = false;
+		//		}
 				if (state == T_STATE) {
 					state = 1;
 				}
-			}
-System.out.println(s.finishLevel);
+		//	}
 		}
 		if (e.getKeyCode() == KeyEvent.VK_Q) {
 			if (state != T_STATE) {
 				state = state - 1;
 			}
 		}
-
 		if (e.getKeyCode( ) == KeyEvent.VK_R ) {
-			if (state == STATE_1 && s.tempX != 50 && s.tempY != 100) {
-				s.tempX = 50;
-				s.tempY = 100;
+			if (state == STATE_1 || state == STATE_2 && s.tempX != 50 && s.tempY != 100 && e.getSource() == null) {
+					s.tempX = 50;
+					s.tempY = 100;	
 			}
 		}
-		
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			moveLeft = true;
-			//System.out.println("left");
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			moveRight = true;
-			//System.out.println("right");
 		}
 
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			jump = true;
-			//System.out.println("jump");
 		}
 	}
-
-	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 			moveLeft = false;
 		}
@@ -159,14 +154,11 @@ System.out.println(s.finishLevel);
 		if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 			jump = false;
 		}
-
 	}
-
 	void drawTState(Graphics g) {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
 	}
-
 	void drawState1(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
@@ -174,31 +166,24 @@ System.out.println(s.finishLevel);
 		om.draw(g);
 		s.draw(g, Color.WHITE);
 	}
-
 	void drawState2(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
 		s.draw(g, Color.BLACK);
-
 	}
-
 	void drawState3(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
 		s.draw(g, Color.WHITE);
 	}
-
 	void drawState4(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
 		s.draw(g, Color.BLACK);
-
 	}
-
 	void drawState5(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
 		s.draw(g, Color.WHITE);
 	}
-
 }

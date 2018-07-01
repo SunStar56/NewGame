@@ -22,6 +22,15 @@ public class ObjectManager {
 	public void addObject(GameObject steps) {
 		objects.add(steps);
 	}
+	public void setup(int level) {
+		if (level == 1) {
+			setup1();
+		}
+		if (level == 2) {
+			setup2();
+		}
+		
+	}
 
 	public void update() {
 		for (int i = 0; i < objects.size(); i++) {
@@ -63,6 +72,7 @@ public class ObjectManager {
 				GameObject g1 = goals.get(j);
 				if (g1.collisionBox.intersects(s.collisionBox)) { 
 					s.touchGoal = true;
+					s.squareCollision = true;
 				}
 				
 			}
@@ -81,9 +91,15 @@ public class ObjectManager {
 	public void reset() {
 		objects.clear();
 	}
+	
+	public void setSquare() {
+		Square s = new Square(50, 100, Square.size, Square.size);
+	}
 
 	public void setup1() {
+		
 		if (!setup1complete) {
+			setSquare();
 			Steps ap1 = new Steps(0, 200, 100, 25);
 			ap1.collisionBox.setBounds(0, 250, 100, 25);
 			objects.add(ap1);
@@ -99,8 +115,8 @@ public class ObjectManager {
 			Steps ap5 = new Steps(700, 350, 100, 25);
 			ap5.collisionBox.setBounds(700,350, 100, 25);
 			objects.add(ap5);
-			Goals ag1 = new Goals(750, 325, 25, 25);
-			ag1.collisionBox.setBounds(750, 325, 25, 25);
+			Goals ag1 = new Goals(750, 310, 25, 25);
+			ag1.collisionBox.setBounds(750, 310, 25, 25);
 			goals.add(ag1);
 			// System.out.println(setup1complete);
 			setup1complete = true;
@@ -108,6 +124,17 @@ public class ObjectManager {
 	}
 
 	public void setup2() {
-		Steps bp1 = new Steps(1, 1, 1, 1);
+		setSquare();
+		objects.clear();
+		goals.clear();
+		Steps bp1 = new Steps(0, 200, 100, 25);
+		bp1.collisionBox.setBounds(0, 200, 100, 25);
+		objects.add(bp1);
+		Steps bp2 = new Steps(150, 150, 100, 25);
+		bp2.collisionBox.setBounds(150, 150, 100, 25);
+		objects.add(bp2);
+		Steps bp3 = new Steps(375, 300, 100, 25);
+		bp3 = new Steps(375, 300, 100, 25);
+		objects.add(bp3);
 	}
 }
