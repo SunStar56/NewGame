@@ -7,6 +7,8 @@ public class ObjectManager {
 
 	private int score = 0;
 	boolean setup1complete = false;
+	boolean setup2complete = false;
+	boolean setup3complete = false;
 	Square s;
 	ArrayList<GameObject> goals;
 
@@ -28,6 +30,9 @@ public class ObjectManager {
 		}
 		if (level == 2) {
 			setup2();
+		}
+		if (level == 3) {
+			setup3();
 		}
 		
 	}
@@ -61,7 +66,6 @@ public class ObjectManager {
 	public void checkCollision() {
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject o1 = objects.get(i);
-			
 			if (o1.collisionBox.intersects(s.collisionBox)) {
 				if (s.collisionBox.y + s.height > o1.collisionBox.y + 5 && s.collisionBox.x + s.width > o1.collisionBox.x){
 					s.stuck = true;
@@ -73,6 +77,7 @@ public class ObjectManager {
 				if (g1.collisionBox.intersects(s.collisionBox)) { 
 					s.touchGoal = true;
 					s.squareCollision = true;
+					System.out.println("touchgoal");
 				}
 				
 			}
@@ -89,7 +94,7 @@ public class ObjectManager {
 	}
 
 	public void reset() {
-		objects.clear();
+		
 	}
 	
 	public void setSquare() {
@@ -99,7 +104,10 @@ public class ObjectManager {
 	public void setup1() {
 		
 		if (!setup1complete) {
+			System.out.println("Ran setup1()");
 			setSquare();
+			objects.clear();
+			goals.clear();
 			Steps ap1 = new Steps(0, 200, 100, 25);
 			ap1.collisionBox.setBounds(0, 250, 100, 25);
 			objects.add(ap1);
@@ -118,23 +126,45 @@ public class ObjectManager {
 			Goals ag1 = new Goals(750, 310, 25, 25);
 			ag1.collisionBox.setBounds(750, 310, 25, 25);
 			goals.add(ag1);
-			// System.out.println(setup1complete);
 			setup1complete = true;
+			System.out.println(setup1complete);
 		}
 	}
 
 	public void setup2() {
-		setSquare();
-		objects.clear();
-		goals.clear();
-		Steps bp1 = new Steps(0, 200, 100, 25);
-		bp1.collisionBox.setBounds(0, 200, 100, 25);
-		objects.add(bp1);
-		Steps bp2 = new Steps(150, 150, 100, 25);
-		bp2.collisionBox.setBounds(150, 150, 100, 25);
-		objects.add(bp2);
-		Steps bp3 = new Steps(375, 300, 100, 25);
-		bp3 = new Steps(375, 300, 100, 25);
-		objects.add(bp3);
+		if (s.squareCollision && !setup2complete) {
+			setSquare();
+			objects.clear();
+			goals.clear();
+			Steps bp1 = new Steps(0, 500, 100, 25);
+			bp1.collisionBox.setBounds(0, 500, 100, 25);
+			objects.add(bp1);
+			Steps bp2 = new Steps(150, 425, 100, 25);
+			bp2.collisionBox.setBounds(150, 425, 100, 25);
+			objects.add(bp2);
+			Steps bp3 = new Steps(350, 350, 100, 25);
+			bp3.collisionBox.setBounds(350, 350, 100, 25);
+			objects.add(bp3);
+			Steps bp4 = new Steps(550, 425, 100, 25);
+			bp4.collisionBox.setBounds(550, 425, 100, 25);
+			objects.add(bp4);
+			Steps bp5 = new Steps(700, 500, 100, 25);
+			bp5.collisionBox.setBounds(700, 500 , 100, 25);
+			objects.add(bp5);
+			Goals bg1 = new Goals(750, 460, 25, 25);
+			bg1.collisionBox.setBounds(750, 460, 25, 25);
+			goals.add(bg1);
+			setup2complete = true;
+		}	
+	}
+	public void setup3() {
+		if (!setup3complete) {
+			reset();
+			Steps cp1 = new Steps(0, 350, 100, 25);
+			cp1 = new Steps(0, 350, 100, 25);
+			objects.add(cp1);
+		}
+		
+		
 	}
 }

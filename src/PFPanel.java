@@ -20,11 +20,13 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	final int STATE_5 = 5;
 	final int E_STATE = 6;
 	int setuplvl = 1;
+	int finishIf = 0;
 	Font nextScreenText;
 	public static boolean moveRight = false;
 	public static boolean moveLeft = false;
 	public static boolean jump = false;
 	boolean setupcomplete1;
+	boolean setupcomplete2;
 	Square s;
 	Square sHB;
 	int state = T_STATE;
@@ -34,7 +36,6 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		s = new Square(50, 50, Square.size, Square.size);
 		om = new ObjectManager(s);
 		nextScreenText = new Font("Arial", Font.PLAIN, 36);
-
 		sHB = new Square(40, 40, Square.size + 10, Square.size + 10);
 	}
 	void startGame() {
@@ -65,8 +66,12 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	}
 	public void actionPerformed(ActionEvent e) {
 		if (setupcomplete1 == false) {
-			om.setup1();
+			om.setup(1);
 			setupcomplete1 = true;
+		}
+		if (setupcomplete2 == false) {
+			om.setup(2);
+			setupcomplete2 = true;
 		}
 		if (moveLeft == true) {
 			s.moveLeft(5);
@@ -77,21 +82,25 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		if (jump == true) {
 			s.jump();
 		}
-		if (s.finishLevel == true) {
+		while (s.finishLevel == true) {
+			System.out.println("s.finishLevel was true.");
 			om.setup(state + 1);
 			setuplevels();
-			if (state == STATE_1 || state == STATE_2 && s.tempX != 50 && s.tempY != 100 && e.getSource() == null) {
+			if (s.tempX != 50 && s.tempY != 100 && finishIf != 1) {
 				s.tempX = 50;
-				s.tempY = 100;	
+				s.tempY = 300;	
+				System.out.println("got here  FinishIf : " + finishIf + " YAxis : " + s.tempY);
+				finishIf = 1;
+				s.finishLevel = false;
 		}
 			s.finishLevel = false;
+			finishIf = 0;
 		}
 		
 		
 		if (state != T_STATE || state != E_STATE) {
 			om.update();
 			om.checkCollision();
-
 		}
 
 		repaint();
@@ -156,7 +165,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		}
 	}
 	void drawTState(Graphics g) {
-		g.setColor(Color.BLACK);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
 	}
 	void drawState1(Graphics g) {
