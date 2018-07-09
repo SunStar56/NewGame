@@ -6,6 +6,8 @@ public class Steps extends GameObject {
 
 	public Steps(int x, int y, int width, int height) {
 		super(x, y, width, height);
+		this.update();
+		//super.collisionBox(x,y,width, height);
 
 	}
 
@@ -17,7 +19,6 @@ public class Steps extends GameObject {
 
 	public void update() {
 		super.update();
-
 	}
 
 }

@@ -6,7 +6,7 @@ public class Goals extends GameObject {
 
 	public Goals(int x, int y, int width, int height) {
 		super(x, y, width, height);
-
+		this.update();
 	}
 
 	public void draw(Graphics g) {

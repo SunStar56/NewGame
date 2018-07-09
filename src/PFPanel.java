@@ -65,13 +65,11 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		
 	}
 	public void actionPerformed(ActionEvent e) {
-		if (setupcomplete1 == false) {
+		if (setupcomplete1 == false && state == 1) {
 			om.setup(1);
-			setupcomplete1 = true;
 		}
-		if (setupcomplete2 == false) {
+		if (setupcomplete2 == false && state == 2) {
 			om.setup(2);
-			setupcomplete2 = true;
 		}
 		if (moveLeft == true) {
 			s.moveLeft(5);
@@ -82,19 +80,22 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		if (jump == true) {
 			s.jump();
 		}
-		while (s.finishLevel == true) {
+		if (s.finishLevel == true) {
 			System.out.println("s.finishLevel was true.");
-			om.setup(state + 1);
-			setuplevels();
-			if (s.tempX != 50 && s.tempY != 100 && finishIf != 1) {
-				s.tempX = 50;
-				s.tempY = 300;	
-				System.out.println("got here  FinishIf : " + finishIf + " YAxis : " + s.tempY);
-				finishIf = 1;
-				s.finishLevel = false;
-		}
 			s.finishLevel = false;
-			finishIf = 0;
+			s.tempX = 50;
+			s.tempY = 300;
+			om.setup(state + 1);
+			//setuplevels();
+			//if (s.tempX != 50 && s.tempY != 100 && finishIf != 1) {
+//					
+//				System.out.println("got here  FinishIf : " + finishIf + " YAxis : " + s.tempY);
+//				finishIf = 1;
+				
+//		}
+//			finishIf = 0;
+//			s.finishLevel = false;
+//			
 		}
 		
 		
@@ -114,22 +115,13 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	}
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_E) {
-	if (state != T_STATE && s.finishLevel == true) {
-			om.setup(state +  1);	
-			state = state + 1;
-				s.tempX = 50;
-				s.tempY = 100;
-				s.finishLevel = false;
-	} //else {
-		//		if (state == E_STATE) {
-		//			state = T_STATE;
-		//			setupcomplete1 = false;
-		//		}
-				if (state == T_STATE) {
-					state = 1;
-				}
-		//	}
+			if (state == T_STATE) {
+				state = 1;
+			}
 		}
+				
+			
+		//}
 		if (e.getKeyCode() == KeyEvent.VK_Q) {
 			if (state != T_STATE) {
 				state = state - 1;
