@@ -81,7 +81,10 @@ public class Square extends GameObject {
 
 		if (touchGoal) {
 			finishLevel = true;
+			touchGoal = false;
 		}
+		
+		
 		
 		if (tempX > 750) {
 			x -= 10;

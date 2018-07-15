@@ -83,9 +83,13 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		if (s.finishLevel == true) {
 			System.out.println("s.finishLevel was true.");
 			s.finishLevel = false;
+			System.out.println(s.finishLevel);
 			s.tempX = 50;
 			s.tempY = 300;
+			//state++;
+			
 			om.setup(state + 1);
+			s.touchGoal = false;
 			//setuplevels();
 			//if (s.tempX != 50 && s.tempY != 100 && finishIf != 1) {
 //					

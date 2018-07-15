@@ -78,6 +78,7 @@ public class ObjectManager {
 					s.touchGoal = true;
 					s.squareCollision = true;
 					System.out.println("touchgoal");
+					System.out.println(s.tempY);
 				}
 				
 			}
@@ -94,7 +95,9 @@ public class ObjectManager {
 	}
 
 	public void reset() {
-		
+		setSquare();
+		objects.clear();
+		goals.clear();
 	}
 	
 	public void setSquare() {
@@ -104,12 +107,9 @@ public class ObjectManager {
 	public void setup1() {
 		
 		if (!setup1complete) {
-			System.out.println("Ran setup1()");
 			
-			setSquare();
-			objects.clear();
-			goals.clear();
-
+			reset();
+			
 			objects.add(new Steps(0, 200, 100, 25));
 			objects.add(new Steps(150, 400, 100, 25));
 			objects.add(new Steps (350, 350, 100, 25));
@@ -126,9 +126,7 @@ public class ObjectManager {
 	public void setup2() {
 		if (!s.squareCollision && !setup2complete) {
 			
-			setSquare();
-			objects.clear();
-			goals.clear();
+			reset();			
 			
 			objects.add(new Steps(0, 500, 100, 25));
 			objects.add(new Steps(150, 425, 100, 25));
