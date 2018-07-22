@@ -76,31 +76,19 @@ public class Square extends GameObject {
 	}
 
 	public void update() {
-		super.update();
 		collisionBox.setBounds(tempX, tempY += gravity + 2, Square.size, Square.size);
 
 		if (touchGoal) {
 			finishLevel = true;
-			touchGoal = false;
 		}
 		
-		
-		
-		if (tempX > 750) {
-			x -= 10;
-		}
-		if (tempX < 0) {
-			x += 10;
-		}
 		if (squareCollision) {
 			if (stuck) {
 				y = (int) collisionBox.getY() - 2;
-				squareCollision = true;
 				canJump = true;
 			}
 			else {
 				//yVelocty -= gravity;
-				squareCollision = true;
 				canJump = true;
 				x = (int) collisionBox.getX();
 			}
@@ -111,11 +99,6 @@ public class Square extends GameObject {
 			yVelocty = 0;
 			x = (int) collisionBox.getX();
 			y = (int) collisionBox.getY() - 2;
-			// 
-			// System.out.println("not colliding");
-			yVelocty += gravity;
-			// if (!squareCollision) {
-			tempY += yVelocty;
 		}
 
 		// }
@@ -124,6 +107,12 @@ public class Square extends GameObject {
 		tempY = y;
 	}
 
+	public void setPos(int newX, int newY) {
+		x = newX;
+		y = newY;
+		
+	}
+	
 	public void draw(Graphics g, Color c) {
 		Graphics2D g2 = (Graphics2D) g;
 		g.setColor(c);

@@ -21,28 +21,23 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	final int E_STATE = 6;
 	int setuplvl = 1;
 	int finishIf = 0;
-	Font nextScreenText;
 	public static boolean moveRight = false;
 	public static boolean moveLeft = false;
 	public static boolean jump = false;
 	boolean setupcomplete1;
 	boolean setupcomplete2;
 	Square s;
-	Square sHB;
 	int state = T_STATE;
 	ObjectManager om;
 	public PFPanel() {
 		timer = new Timer(1000 / 60, this);
 		s = new Square(50, 50, Square.size, Square.size);
 		om = new ObjectManager(s);
-		nextScreenText = new Font("Arial", Font.PLAIN, 36);
-		sHB = new Square(40, 40, Square.size + 10, Square.size + 10);
 	}
 	void startGame() {
 		timer.start();
 	}
-	public void paintComponent(Graphics g) {
-			
+	public void paintComponent(Graphics g) {	
 		if (state == T_STATE) {
 			drawTState(g);
 		}
@@ -83,23 +78,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		if (s.finishLevel == true) {
 			System.out.println("s.finishLevel was true.");
 			s.finishLevel = false;
-			System.out.println(s.finishLevel);
 			s.tempX = 50;
 			s.tempY = 300;
-			//state++;
-			
-			om.setup(state + 1);
-			s.touchGoal = false;
-			//setuplevels();
-			//if (s.tempX != 50 && s.tempY != 100 && finishIf != 1) {
-//					
-//				System.out.println("got here  FinishIf : " + finishIf + " YAxis : " + s.tempY);
-//				finishIf = 1;
-				
-//		}
-//			finishIf = 0;
-//			s.finishLevel = false;
-//			
+			om.setup(state + 1);		
 		}
 		
 		
@@ -110,10 +91,6 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 
 		repaint();
 }
-	public void setuplevels() {
-		om.s = s;
-		
-	}
 	public void keyTyped(KeyEvent e) {
 		
 	}
@@ -123,16 +100,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 				state = 1;
 			}
 		}
-				
-			
-		//}
-		if (e.getKeyCode() == KeyEvent.VK_Q) {
-			if (state != T_STATE) {
-				state = state - 1;
-			}
-		}
+		
 		if (e.getKeyCode( ) == KeyEvent.VK_R ) {
-			if (state == STATE_1 || state == STATE_2 && s.tempX != 50 && s.tempY != 100 && e.getSource() == null) {
+			if (state == STATE_1 || state == STATE_2 && s.tempX != 50 && s.tempY != 100) {
 					s.tempX = 50;
 					s.tempY = 100;	
 			}
