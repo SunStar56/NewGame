@@ -80,6 +80,7 @@ public class Square extends GameObject {
 
 		if (touchGoal) {
 			finishLevel = true;
+			touchGoal = false;
 		}
 		
 		if (squareCollision) {

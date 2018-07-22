@@ -75,6 +75,7 @@ public class ObjectManager {
 				s.touchGoal = true;
 				s.squareCollision = true;
 				System.out.println("touchgoal");
+				
 			}
 
 		}
@@ -89,12 +90,9 @@ public class ObjectManager {
 		score = s;
 	}
 
-	public void reset() {
-
-	}
-
 	public void setSquare() {
 		s.setPos(50, 100);
+		update();
 	}
 
 	public void setup1() {
@@ -139,11 +137,16 @@ public class ObjectManager {
 	}
 
 	public void setup3() {
-		if (!setup3complete) {
-			reset();
-			Steps cp1 = new Steps(0, 350, 100, 25);
-			cp1 = new Steps(0, 350, 100, 25);
-			objects.add(cp1);
+		if (!s.squareCollision && !setup3complete) {
+			
+			setSquare();
+			objects.clear();
+			goals.clear();
+			
+			objects.add(new Steps(0, 500, 100, 25));
+			
+			setup3complete = true;
+
 		}
 
 	}

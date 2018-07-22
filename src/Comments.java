@@ -30,19 +30,28 @@
  * 		update: calls an update on all objects
  * 		draw: draws graphics for all objects
  * 		checkCollision: loops through the platforms to check if the player is stuck in the platform.  Also checks if the player is touching the goal, and sets the stuck/squareCollision variable
+ * 		setSquare: sets the position of the new Square, and updates the hitbox.
+ * 		
+ * 
  * 
  * 	GameObject:
  * 		init: sets dimensions(x,y,w,h)
  * 		update: add/updates a collision box for this object
+ * 		
+ * 	Goals/Steps are subsets of this class.
  * 
  * 
  * 	Square:
  * 		init: see GameObject
- * 		getY: (?)
- * 		jump: (?)
+ * 		getY: returns Y, for testing purposes
+ * 		jump: allows the player to jump
  * 		moveLeft/moveRight: called by gameObject, moves character left/right by using a temporary position to check where it's going to be (check for why moveleft/moveright variables are set here)
  * 		update: sets boundaries for where it should be going
- * 			
+ * 		draw: draws the square and its hitbox
+ * 
+ * 	
+ * 	Items that call finishLevel:
+ * 		
  * 		
  * 
  * 

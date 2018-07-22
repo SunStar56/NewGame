@@ -26,6 +26,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	public static boolean jump = false;
 	boolean setupcomplete1;
 	boolean setupcomplete2;
+	boolean setupcomplete3;
 	Square s;
 	int state = T_STATE;
 	ObjectManager om;
@@ -60,11 +61,15 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		
 	}
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(state);
 		if (setupcomplete1 == false && state == 1) {
 			om.setup(1);
 		}
 		if (setupcomplete2 == false && state == 2) {
 			om.setup(2);
+		}
+		if (setupcomplete3 == false && state == 3) {
+			om.setup(3);
 		}
 		if (moveLeft == true) {
 			s.moveLeft(5);
@@ -81,6 +86,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 			s.tempX = 50;
 			s.tempY = 300;
 			om.setup(state + 1);		
+			System.out.println(state);
+			nextLevel(state);
+
 		}
 		
 		
@@ -102,7 +110,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		}
 		
 		if (e.getKeyCode( ) == KeyEvent.VK_R ) {
-			if (state == STATE_1 || state == STATE_2 && s.tempX != 50 && s.tempY != 100) {
+			if (state == STATE_1 || state == STATE_2 || state == STATE_3 && s.tempX != 50 && s.tempY != 100) {
 					s.tempX = 50;
 					s.tempY = 100;	
 			}
@@ -160,5 +168,22 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
 		s.draw(g, Color.WHITE);
+	}
+	void nextLevel(int currentState) {
+	if (currentState == STATE_5) {
+		state = E_STATE;
+	}
+	else if (currentState == STATE_4) {
+		state = STATE_5;
+	}
+	else if (currentState == STATE_3) {
+		state = STATE_4;
+	}
+	else if (currentState == STATE_2) {
+		state = STATE_3;
+	}
+	else if (currentState == STATE_2) {
+		state = STATE_1;
+	}
 	}
 }
