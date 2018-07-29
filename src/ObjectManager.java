@@ -9,6 +9,8 @@ public class ObjectManager {
 	boolean setup1complete = false;
 	boolean setup2complete = false;
 	boolean setup3complete = false;
+	boolean setup4complete = false;
+	boolean setup5complete = false;
 	Square s;
 	long enemyTimer = 0;
 	int enemySpawnTime = 1000;
@@ -28,6 +30,12 @@ public class ObjectManager {
 		}
 		if (level == 3) {
 			setup3();
+		}
+		if (level == 4) {
+			setup4();
+		}
+		if (level == 5) {
+			setup5();
 		}
 
 	}
@@ -49,6 +57,7 @@ public class ObjectManager {
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject o = objects.get(i);
 			o.draw(g);
+			System.out.println("drawn");
 		}
 		for (int i = 0; i < goals.size(); i++) {
 			GameObject gls = goals.get(i);
@@ -72,6 +81,8 @@ public class ObjectManager {
 		for (int j = 0; j < goals.size(); j++) {
 			GameObject g1 = goals.get(j);
 			if (g1.collisionBox.intersects(s.collisionBox)) {
+				s.x = 50;
+				s.y = 100;
 				s.touchGoal = true;
 				s.squareCollision = true;
 				System.out.println("touchgoal");
@@ -118,7 +129,7 @@ public class ObjectManager {
 	}
 
 	public void setup2() {
-		if (!s.squareCollision && !setup2complete) {
+		if (!s.squareCollision && !setup2complete && setup1complete) {
 
 			setSquare();
 			objects.clear();
@@ -137,17 +148,62 @@ public class ObjectManager {
 	}
 
 	public void setup3() {
-		if (!s.squareCollision && !setup3complete) {
-			
+		if (!s.squareCollision && !setup3complete && setup2complete) {
+			s.finishLevel = false;
 			setSquare();
 			objects.clear();
 			goals.clear();
 			
 			objects.add(new Steps(0, 500, 100, 25));
+			objects.add(new Steps(175, 425, 100, 25));
+			objects.add(new Steps(325, 350, 100, 25));
+			objects.add(new Steps(500, 275, 100, 25));
+			objects.add(new Steps(675, 200, 100, 25));
+			
+			goals.add(new Goals(725, 160, 25, 25));
 			
 			setup3complete = true;
 
 		}
 
 	}
-}
+	
+	public void setup4() {
+		if (!s.squareCollision && !setup4complete && setup3complete) {
+			s.finishLevel = false;
+			setSquare();
+			objects.clear();
+			goals.clear();
+		
+			objects.add(new Steps(0, 400, 100, 25));
+			objects.add(new Steps(175, 525, 100, 25));
+			objects.add(new Steps(350, 475, 100, 25));
+			objects.add(new Steps(525, 425, 100, 25));
+			objects.add(new Steps(700, 375, 100, 25));
+			
+			goals.add(new Goals(750, 335, 25, 25));
+			
+			setup4complete = true;
+		}
+	
+	}
+	
+	public void setup5() {
+		if (!s.squareCollision && !setup5complete && setup4complete) {
+			s.finishLevel = false;
+			setSquare();
+			objects.clear();
+			goals.clear();
+			
+			objects.add(new Steps(0, 400, 100, 25));
+			objects.add(new Steps(200, 350, 100, 25));
+			objects.add(new Steps(325,  300, 100, 25));
+			objects.add(new Steps(475, 525, 100, 25));
+			objects.add(new Steps(325, 600, 100, 25));
+			
+			setup5complete = true;
+		}
+	}
+	
+	}
+

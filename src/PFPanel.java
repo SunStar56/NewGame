@@ -27,6 +27,8 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	boolean setupcomplete1;
 	boolean setupcomplete2;
 	boolean setupcomplete3;
+	boolean setupcomplete4;
+	boolean setupcomplete5;
 	Square s;
 	int state = T_STATE;
 	ObjectManager om;
@@ -34,6 +36,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 		s = new Square(50, 50, Square.size, Square.size);
 		om = new ObjectManager(s);
+		
 	}
 	void startGame() {
 		timer.start();
@@ -71,6 +74,12 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		if (setupcomplete3 == false && state == 3) {
 			om.setup(3);
 		}
+		if (setupcomplete4 == false && state == 4) {
+			om.setup(4);
+		}
+		if (setupcomplete5 == false && state == 5) {
+			om.setup(5);
+		}
 		if (moveLeft == true) {
 			s.moveLeft(5);
 		}
@@ -85,7 +94,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 			s.finishLevel = false;
 			s.tempX = 50;
 			s.tempY = 300;
-			om.setup(state + 1);		
+			//om.setup(state + 1);		
 			System.out.println(state);
 			nextLevel(state);
 
@@ -145,28 +154,36 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	void drawState1(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
-		om.setup1();
+		om.setup(1);
 		om.draw(g);
 		s.draw(g, Color.WHITE);
 	}
 	void drawState2(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
+		om.setup(2);
+		om.draw(g);
 		s.draw(g, Color.BLACK);
 	}
 	void drawState3(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
+		om.setup(3);
+		om.draw(g);
 		s.draw(g, Color.WHITE);
 	}
 	void drawState4(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
+		om.setup(4);
+		om.draw(g);
 		s.draw(g, Color.BLACK);
 	}
 	void drawState5(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
+		om.setup(5);
+		om.draw(g);
 		s.draw(g, Color.WHITE);
 	}
 	void nextLevel(int currentState) {
@@ -182,8 +199,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	else if (currentState == STATE_2) {
 		state = STATE_3;
 	}
-	else if (currentState == STATE_2) {
-		state = STATE_1;
+	else if (currentState == STATE_1) {
+		state = STATE_2;
 	}
+	s.finishLevel = false;
 	}
 }
