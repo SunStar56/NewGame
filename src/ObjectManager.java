@@ -197,9 +197,11 @@ public class ObjectManager {
 			
 			objects.add(new Steps(0, 400, 100, 25));
 			objects.add(new Steps(200, 350, 100, 25));
-			objects.add(new Steps(325,  300, 100, 25));
-			objects.add(new Steps(475, 525, 100, 25));
-			objects.add(new Steps(325, 600, 100, 25));
+			objects.add(new Steps(400,  300, 100, 25));
+			objects.add(new Steps(600, 400, 100, 25));
+			objects.add(new Steps(600, 575, 100, 25));
+			
+			goals.add(new Goals(650, 535, 25, 25));
 			
 			setup5complete = true;
 		}

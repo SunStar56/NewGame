@@ -29,6 +29,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	boolean setupcomplete3;
 	boolean setupcomplete4;
 	boolean setupcomplete5;
+	Font InstructionsFont;
 	Square s;
 	int state = T_STATE;
 	ObjectManager om;
@@ -36,6 +37,7 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		timer = new Timer(1000 / 60, this);
 		s = new Square(50, 50, Square.size, Square.size);
 		om = new ObjectManager(s);
+		InstructionsFont = new Font("Arial", Font.PLAIN, 24);
 		
 	}
 	void startGame() {
@@ -59,6 +61,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		}
 		if (state == STATE_5) {
 			drawState5(g);
+		}
+		if (state == E_STATE) {
+			drawEState(g);
 		}
 		
 		
@@ -150,6 +155,9 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 	void drawTState(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
+		g.setFont(InstructionsFont);
+		g.setColor(Color.DARK_GRAY);
+		g.drawString("Use arrow keys to move, press R to begin the game.  Have fun!", 50, 400);
 	}
 	void drawState1(Graphics g) {
 		g.setColor(Color.DARK_GRAY);
@@ -185,6 +193,13 @@ public class PFPanel extends JPanel implements ActionListener, KeyListener {
 		om.setup(5);
 		om.draw(g);
 		s.draw(g, Color.WHITE);
+	}
+	void drawEState(Graphics g) {
+		g.setColor(Color.LIGHT_GRAY);
+		g.fillRect(0, 0, WINDOW_W, WINDOW_H);
+		g.setColor(Color.DARK_GRAY);
+		g.setFont(InstructionsFont);
+		g.drawString("You won!  Thanks for playing.", 250, 300);
 	}
 	void nextLevel(int currentState) {
 	if (currentState == STATE_5) {

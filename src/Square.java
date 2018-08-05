@@ -119,8 +119,8 @@ public class Square extends GameObject {
 		g.setColor(c);
 		g.fillRect(x, y, width, height);
 		// System.out.println(x + " :x y: " + y);
-		g2.setColor(Color.BLUE);
-		g2.draw(collisionBox);
+		//g2.setColor(Color.BLUE);
+		//g2.draw(collisionBox);
 	}
 
 }
